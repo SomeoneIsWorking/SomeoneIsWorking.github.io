@@ -85,11 +85,11 @@ def parse_features(path: Path) -> list[Feature]:
     return features or parse_detail_inventory(text, path)
 
 
-def parse_comparison_baseline(path: Path) -> str | None:
+def parse_comparison_baseline(path: Path) -> str:
     text = path.read_text(encoding="utf-8")
     heading = COMPARISON_BASELINE_HEADING.search(text)
     if not heading:
-        return None
+        raise ValueError(f"{path}: required Comparison baseline section is missing")
     next_heading = SECOND_LEVEL_HEADING.search(text, heading.end())
     section_end = next_heading.start() if next_heading else len(text)
     baseline = re.sub(r"\s+", " ", text[heading.end() : section_end]).strip()
@@ -103,7 +103,7 @@ def typescript_string(value: str) -> str:
 
 
 def render(workspace_root: Path) -> tuple[str, int]:
-    project_data: list[tuple[str, list[Feature], str | None]] = []
+    project_data: list[tuple[str, list[Feature], str]] = []
     total = 0
     for slug, relative_path in PROJECT_PATHS.items():
         state_path = workspace_root / relative_path / "docs" / "project-state.md"
@@ -122,7 +122,7 @@ def render(workspace_root: Path) -> tuple[str, int]:
         "  state: ProjectFeatureState;",
         "}",
         "",
-        "const comparisonBaselinesByProject: Partial<Record<string, string>> = {",
+        "const comparisonBaselinesByProject = {",
     ]
     for slug, _features, comparison_baseline in project_data:
         if comparison_baseline:
@@ -131,7 +131,7 @@ def render(workspace_root: Path) -> tuple[str, int]:
             )
     lines.extend(
         [
-            "};",
+            "} as const satisfies Record<string, string>;",
             "",
         "const featuresByProject = {",
         ]
@@ -159,7 +159,7 @@ def render(workspace_root: Path) -> tuple[str, int]:
             "  return featuresByProject[slug];",
             "}",
             "",
-            "export function comparisonBaselineFor(slug: ProjectSlug): string | undefined {",
+            "export function comparisonBaselineFor(slug: ProjectSlug): string {",
             "  return comparisonBaselinesByProject[slug];",
             "}",
             "",

@@ -79,7 +79,7 @@ const featureStateLabels: Record<ProjectFeatureState, string> = {
         <div class="feature-panel-heading">
           <div>
             <p class="section-index">02 / Intended features</p>
-            <h2>{{ comparisonBaseline ? "Features and differences." : "Capability state." }}</h2>
+            <h2>Features and differences.</h2>
           </div>
           <ul class="feature-legend" aria-label="Feature state key">
             <li v-for="(label, state) in featureStateLabels" :key="state" :data-state="state">
@@ -87,8 +87,8 @@ const featureStateLabels: Record<ProjectFeatureState, string> = {
             </li>
           </ul>
         </div>
-        <p v-if="comparisonBaseline" class="comparison-baseline">
-          <span>Compared with</span>{{ comparisonBaseline }}
+        <p class="comparison-baseline">
+          <span>Comparison baseline</span>{{ comparisonBaseline }}
         </p>
         <ol>
           <li
