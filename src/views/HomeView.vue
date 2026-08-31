@@ -45,7 +45,8 @@ const visibleProjects = computed(() =>
           <h2 id="projects-title">Featured projects.</h2>
         </div>
         <p class="section-note">
-          Selected public projects with source links, current status, and implementation details.
+          Selected public projects with source links, intended capabilities, and evidence-backed
+          state.
         </p>
       </div>
       <div class="featured-grid">

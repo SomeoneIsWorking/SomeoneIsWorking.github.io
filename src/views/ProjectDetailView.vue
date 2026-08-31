@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import { ArrowLeft, ArrowUpRight, Code2 } from "@lucide/vue";
 import ProjectCard from "../components/ProjectCard.vue";
 import { categoryByName, findProject, projects } from "../data/projects";
+import type { ProjectFeatureState } from "../data/project-features.generated";
 
 const route = useRoute();
 const project = computed(() => findProject(String(route.params.slug)));
@@ -20,6 +21,13 @@ const related = computed(() =>
         .slice(0, 3)
     : [],
 );
+
+const featureStateLabels: Record<ProjectFeatureState, string> = {
+  verified: "Verified",
+  partial: "Partial",
+  blocked: "Blocked",
+  missing: "Missing",
+};
 </script>
 
 <template>
@@ -61,13 +69,36 @@ const related = computed(() =>
         <p>{{ project.narrative }}</p>
       </div>
       <div class="feature-panel">
-        <p class="section-index">02 / What it does</p>
+        <div class="feature-panel-heading">
+          <div>
+            <p class="section-index">02 / Intended features</p>
+            <h2>Capability state.</h2>
+          </div>
+          <ul class="feature-legend" aria-label="Feature state key">
+            <li v-for="(label, state) in featureStateLabels" :key="state" :data-state="state">
+              <span aria-hidden="true"></span>{{ label }}
+            </li>
+          </ul>
+        </div>
         <ol>
-          <li v-for="(feature, index) in project.features" :key="feature">
-            <span>{{ String(index + 1).padStart(2, "0") }}</span
-            >{{ feature }}
+          <li
+            v-for="feature in project.features"
+            :key="feature.sourceId"
+            class="feature-item"
+            :data-state="feature.state"
+          >
+            <span class="feature-source">{{ feature.sourceId }}</span>
+            <span class="feature-label">{{ feature.label }}</span>
+            <span class="feature-state">{{ featureStateLabels[feature.state] }}</span>
           </li>
         </ol>
+        <a
+          class="feature-source-link"
+          :href="`${project.github}/blob/main/docs/project-state.md`"
+          target="_blank"
+          rel="noreferrer"
+          >View project state source <ArrowUpRight :size="14" aria-hidden="true"
+        /></a>
       </div>
       <aside class="stack-panel">
         <p class="section-index">03 / Built with</p>
