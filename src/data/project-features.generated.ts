@@ -8,24 +8,29 @@ export interface ProjectFeature {
   state: ProjectFeatureState;
 }
 
+const comparisonBaselinesByProject: Partial<Record<string, string>> = {
+  benefactor:
+    "The baseline is the unmodified 1994 Amiga release running under a conventional emulator, including its original 320-pixel presentation, controls and jump behavior, password flow, floppy timing, and Amiga startup sequence.",
+};
+
 const featuresByProject = {
   benefactor: [
     {
       sourceId: "S001",
       label:
-        "The native desktop product boots and plays the retail game from player-supplied disks",
+        "The game boots and plays natively from player-supplied disks without an Amiga emulator in the shipping process",
       state: "verified",
     },
     {
       sourceId: "S002",
       label:
-        "Widescreen, speed, camera, difficulty, level selection, and persistent options work in the shipping game",
+        "A native pause and options interface applies and persists modern settings without editing configuration files",
       state: "verified",
     },
     {
       sourceId: "S003",
       label:
-        "Keyboard and hot-pluggable controller input support authentic, modern, and rebindable mappings",
+        "Keyboard, hot-pluggable controllers, touch input, rebinding, and an optional alternate control scheme work in the shipping game",
       state: "verified",
     },
     {
@@ -41,8 +46,83 @@ const featuresByProject = {
     },
     {
       sourceId: "S006",
-      label: "A differential PUAE harness compares the port with the original execution",
+      label:
+        "A side-by-side PUAE comparison harness and runtime debugging tools can drive, inspect, capture, and compare execution",
       state: "verified",
+    },
+    {
+      sourceId: "S007",
+      label:
+        "Turbo, hyper, and hold-to-fast-forward increase game speed while music and sound effects remain at normal speed",
+      state: "verified",
+    },
+    {
+      sourceId: "S008",
+      label:
+        "An optional platformer-physics model adds variable-height jumping, air control, momentum, and tunable motion while preserving classic physics",
+      state: "verified",
+    },
+    {
+      sourceId: "S009",
+      label: "A 60-level selector, completion progress, and level locks replace password entry",
+      state: "verified",
+    },
+    {
+      sourceId: "S010",
+      label:
+        "Selectable native software and hardware renderers add ambient-darkness and character drop-shadow effects while retaining the faithful renderer",
+      state: "verified",
+    },
+    {
+      sourceId: "S011",
+      label:
+        "True widescreen renders additional simulated world at 16:9, 21:9, or the live window width instead of stretching the original frame",
+      state: "verified",
+    },
+    {
+      sourceId: "S012",
+      label:
+        "Native one-frame boot bypasses the Amiga startup sequence, and direct disk loading removes multi-second floppy loading waits",
+      state: "verified",
+    },
+    {
+      sourceId: "S013",
+      label: "A free camera can detach from gameplay and pan in real time or while paused",
+      state: "verified",
+    },
+    {
+      sourceId: "S014",
+      label:
+        "The original Easy, Normal, and Hard difficulty selector is restored and usable from the main menu",
+      state: "verified",
+    },
+    {
+      sourceId: "S015",
+      label:
+        "Skip-intro, unlock-all-levels, and light-or-disabled fall-damage options provide cheats and accessibility controls",
+      state: "verified",
+    },
+    {
+      sourceId: "S016",
+      label:
+        "Pickup and interaction reach can be extended independently of the selected control scheme",
+      state: "verified",
+    },
+    {
+      sourceId: "S017",
+      label:
+        "Savestates, direct level entry, headless execution, frame profiling, and runtime probes support development and testing",
+      state: "verified",
+    },
+    {
+      sourceId: "S018",
+      label: "Player-facing save slots include names, timestamps, and screenshot previews",
+      state: "missing",
+    },
+    {
+      sourceId: "S019",
+      label: "Hold-to-rewind restores recent game states through a bounded savestate history",
+      state: "missing",
     },
   ],
   sunbright: [
@@ -506,7 +586,7 @@ const featuresByProject = {
     {
       sourceId: "S007",
       label: "HTTP responses stream bounded files without loading complete media into memory",
-      state: "partial",
+      state: "verified",
     },
   ],
   alchemy: [
@@ -825,4 +905,8 @@ export type ProjectSlug = keyof typeof featuresByProject;
 
 export function featuresFor(slug: ProjectSlug): readonly ProjectFeature[] {
   return featuresByProject[slug];
+}
+
+export function comparisonBaselineFor(slug: ProjectSlug): string | undefined {
+  return comparisonBaselinesByProject[slug];
 }

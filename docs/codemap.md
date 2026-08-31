@@ -26,7 +26,7 @@ tools/sync_project_features.py (project-state snapshot generator and stale check
 | Project details | Feature list, stack, source/live links, related work, and route metadata | `src/views/ProjectDetailView.vue` | `/projects/:slug` | — |
 | Project summaries | Reusable cards for featured, directory, and related-project lists | `src/components/ProjectCard.vue` | `ProjectCard.vue` | — |
 | Portfolio content | Categories, project facts, links, and featured status | `src/data/projects.ts` | `projects` | — |
-| Intended feature state | Parse canonical sibling project-state registries into the committed portable snapshot used by detail pages | `tools/sync_project_features.py`, `src/data/project-features.generated.ts` | `featuresFor` | `docs/project-state.md` |
+| Intended feature state | Parse canonical sibling project-state registries, including comparison baselines, into the committed portable snapshot used by detail pages | `tools/sync_project_features.py`, `src/data/project-features.generated.ts` | `featuresFor`, `comparisonBaselineFor` | `docs/project-state.md` |
 | Visual system | Theme tokens, responsive layouts, motion, and component styling | `src/styles.css` | `src/main.ts` | — |
 | Social identity | Favicon, social card, and root-page metadata | `public/`, `index.html` | `index.html` | — |
 
