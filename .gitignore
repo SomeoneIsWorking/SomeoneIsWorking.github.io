@@ -28,6 +28,8 @@ yarn-error.log*
 .vercel
 next-env.d.ts
 /dist/
+/build/
+/scratch/
 /.wrangler/
 /outputs/
 /work/
