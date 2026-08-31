@@ -748,6 +748,26 @@ a {
   background: var(--state-color);
 }
 
+.comparison-baseline {
+  margin: 0 0 24px;
+  padding: 15px 17px;
+  border: 1px solid var(--line);
+  background: rgb(255 255 255 / 2%);
+  color: #c6c7ca;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.comparison-baseline > span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--accent);
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .feature-item {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr) auto;

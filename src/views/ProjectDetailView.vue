@@ -4,7 +4,11 @@ import { useRoute } from "vue-router";
 import { ArrowLeft, ArrowUpRight, Code2 } from "@lucide/vue";
 import ProjectCard from "../components/ProjectCard.vue";
 import { categoryByName, findProject, projects } from "../data/projects";
-import type { ProjectFeatureState } from "../data/project-features.generated";
+import {
+  comparisonBaselineFor,
+  type ProjectFeatureState,
+  type ProjectSlug,
+} from "../data/project-features.generated";
 
 const route = useRoute();
 const project = computed(() => findProject(String(route.params.slug)));
@@ -20,6 +24,9 @@ const related = computed(() =>
         )
         .slice(0, 3)
     : [],
+);
+const comparisonBaseline = computed(() =>
+  project.value ? comparisonBaselineFor(project.value.slug as ProjectSlug) : undefined,
 );
 
 const featureStateLabels: Record<ProjectFeatureState, string> = {
@@ -72,7 +79,7 @@ const featureStateLabels: Record<ProjectFeatureState, string> = {
         <div class="feature-panel-heading">
           <div>
             <p class="section-index">02 / Intended features</p>
-            <h2>Capability state.</h2>
+            <h2>{{ comparisonBaseline ? "Features and differences." : "Capability state." }}</h2>
           </div>
           <ul class="feature-legend" aria-label="Feature state key">
             <li v-for="(label, state) in featureStateLabels" :key="state" :data-state="state">
@@ -80,6 +87,9 @@ const featureStateLabels: Record<ProjectFeatureState, string> = {
             </li>
           </ul>
         </div>
+        <p v-if="comparisonBaseline" class="comparison-baseline">
+          <span>Compared with</span>{{ comparisonBaseline }}
+        </p>
         <ol>
           <li
             v-for="feature in project.features"
