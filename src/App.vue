@@ -1,5 +1,40 @@
 <script setup lang="ts">
+import { watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import { Code2 } from "@lucide/vue";
+import { findProject } from "./data/projects";
+import { applyPageMetadata } from "./lib/metadata";
+
+const route = useRoute();
+
+watchEffect(() => {
+  const project = route.name === "project" ? findProject(String(route.params.slug)) : undefined;
+
+  if (project) {
+    applyPageMetadata({
+      title: `${project.name} — SomeoneIsWorking`,
+      description: project.summary,
+      path: route.fullPath,
+      image: project.screenshots?.[0]?.src,
+    });
+    return;
+  }
+
+  if (route.name === "project") {
+    applyPageMetadata({
+      title: "Project not found — SomeoneIsWorking",
+      description: "Open-source project portfolio by SomeoneIsWorking.",
+      path: route.fullPath,
+    });
+    return;
+  }
+
+  applyPageMetadata({
+    title: "SomeoneIsWorking — Open-source projects",
+    description: "Game ports, porting infrastructure, developer tools, and desktop applications.",
+    path: "/",
+  });
+});
 </script>
 
 <template>
@@ -27,7 +62,7 @@ import { Code2 } from "@lucide/vue";
     <RouterView />
 
     <footer class="site-footer">
-      <p>Built in the open. Made to last.</p>
+      <p>Open-source projects by SomeoneIsWorking.</p>
       <a href="https://github.com/SomeoneIsWorking" target="_blank" rel="noreferrer">
         GitHub / SomeoneIsWorking
       </a>

@@ -19,12 +19,9 @@ const visibleProjects = computed(() =>
       <div class="hero-kicker">
         <span class="status-dot" aria-hidden="true"></span>Independent open-source work
       </div>
-      <h1 id="hero-title">Built close to<br /><span>the metal.</span></h1>
+      <h1 id="hero-title">Open-source<br /><span>projects.</span></h1>
       <div class="hero-bottom">
-        <p>
-          Native ports, portable runtimes, and focused tools—engineered from first principles and
-          shared in public.
-        </p>
+        <p>Game ports, porting infrastructure, developer tools, and desktop applications.</p>
         <a class="round-link" href="#projects" aria-label="Explore projects"
           ><ArrowDown :size="22" aria-hidden="true"
         /></a>
@@ -45,11 +42,10 @@ const visibleProjects = computed(() =>
       <div class="section-heading">
         <div>
           <p class="section-index">01 / Featured work</p>
-          <h2 id="projects-title">Projects with a pulse.</h2>
+          <h2 id="projects-title">Featured projects.</h2>
         </div>
         <p class="section-note">
-          Complete products and foundational systems, selected for the depth of the problem and the
-          quality of the engineering boundary.
+          Selected public projects with source links, current status, and implementation details.
         </p>
       </div>
       <div class="featured-grid">
@@ -66,7 +62,7 @@ const visibleProjects = computed(() =>
       <div class="directory-heading">
         <div>
           <p class="section-index">02 / Project index</p>
-          <h2 id="directory-title">Browse the workshop.</h2>
+          <h2 id="directory-title">All projects.</h2>
         </div>
         <a
           class="text-link"
@@ -108,12 +104,12 @@ const visibleProjects = computed(() =>
     </section>
 
     <section id="about" class="approach-section" aria-labelledby="approach-title">
-      <p class="section-index">03 / The throughline</p>
+      <p class="section-index">03 / Approach</p>
       <div>
-        <h2 id="approach-title">Small layers.<br />Clear ownership.<br />Real hardware.</h2>
+        <h2 id="approach-title">Reverse engineering.<br />Native systems.<br />Verification.</h2>
         <p>
-          The work ranges from reverse engineering to interface design, but the method stays the
-          same: understand the system, give each responsibility a home, and verify what ships.
+          The projects focus on understanding existing systems, assigning clear subsystem ownership,
+          and verifying the result against real software and hardware.
         </p>
       </div>
     </section>

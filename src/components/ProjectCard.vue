@@ -10,6 +10,14 @@ const category = categoryByName[props.project.category];
 <template>
   <article class="project-card" :class="{ compact }">
     <div class="card-signal" :style="{ '--accent': category.accent }"></div>
+    <div v-if="project.screenshots?.[0]" class="card-media">
+      <img
+        :src="project.screenshots[0].src"
+        :alt="project.screenshots[0].alt"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
     <div class="card-topline">
       <span>{{ project.eyebrow }}</span>
       <span v-if="index !== undefined">{{ String(index + 1).padStart(2, "0") }}</span>

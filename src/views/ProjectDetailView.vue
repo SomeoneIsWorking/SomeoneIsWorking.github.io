@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watchEffect } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { ArrowLeft, ArrowUpRight, Code2 } from "@lucide/vue";
 import ProjectCard from "../components/ProjectCard.vue";
@@ -20,29 +20,6 @@ const related = computed(() =>
         .slice(0, 3)
     : [],
 );
-
-watchEffect(() => {
-  const title = project.value
-    ? `${project.value.name} — SomeoneIsWorking`
-    : "Project not found — SomeoneIsWorking";
-  const description =
-    project.value?.summary ?? "Open-source project portfolio by SomeoneIsWorking.";
-  document.title = title;
-  const values = new Map([
-    ['meta[name="description"]', description],
-    ['meta[property="og:title"]', title],
-    ['meta[property="og:description"]', description],
-    ['meta[name="twitter:title"]', title],
-    ['meta[name="twitter:description"]', description],
-  ]);
-  values.forEach((content, selector) => {
-    const element = document.querySelector<HTMLMetaElement>(selector);
-    if (element) element.content = content;
-  });
-  document
-    .querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]')
-    .forEach((node) => node.remove());
-});
 </script>
 
 <template>
@@ -56,7 +33,10 @@ watchEffect(() => {
           <p class="section-index">{{ project.category }} / {{ project.status }}</p>
           <h1>{{ project.name }}</h1>
         </div>
-        <div class="detail-orbit" aria-hidden="true"><span></span><i></i></div>
+        <figure v-if="project.screenshots?.[0]" class="detail-lead-image">
+          <img :src="project.screenshots[0].src" :alt="project.screenshots[0].alt" />
+        </figure>
+        <div v-else class="detail-orbit" aria-hidden="true"><span></span><i></i></div>
       </div>
       <p class="detail-summary">{{ project.summary }}</p>
       <div class="detail-actions">
@@ -97,11 +77,30 @@ watchEffect(() => {
       </aside>
     </section>
 
+    <section
+      v-if="project.screenshots?.length"
+      class="gallery-section"
+      aria-labelledby="gallery-title"
+    >
+      <div class="directory-heading">
+        <div>
+          <p class="section-index">04 / Project images</p>
+          <h2 id="gallery-title">Project images.</h2>
+        </div>
+      </div>
+      <div class="screenshot-grid">
+        <figure v-for="screenshot in project.screenshots" :key="screenshot.src">
+          <img :src="screenshot.src" :alt="screenshot.alt" loading="lazy" decoding="async" />
+          <figcaption v-if="screenshot.caption">{{ screenshot.caption }}</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section v-if="related.length" class="related-section" aria-labelledby="related-title">
       <div class="directory-heading">
         <div>
-          <p class="section-index">04 / Keep exploring</p>
-          <h2 id="related-title">Related work.</h2>
+          <p class="section-index">{{ project.screenshots?.length ? "05" : "04" }} / Related</p>
+          <h2 id="related-title">Related projects.</h2>
         </div>
       </div>
       <div class="directory-grid">
@@ -117,8 +116,8 @@ watchEffect(() => {
   </main>
 
   <main v-else class="not-found-page">
-    <p class="section-index">404 / No project here</p>
-    <h1>That trail ends here.</h1>
+    <p class="section-index">404</p>
+    <h1>Project not found.</h1>
     <RouterLink class="primary-action" to="/#projects"
       ><ArrowLeft :size="16" aria-hidden="true" /> Back to projects</RouterLink
     >
