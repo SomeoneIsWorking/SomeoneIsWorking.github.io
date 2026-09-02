@@ -25,7 +25,7 @@ PROJECT_PATHS = {
     "lucent": "lucent",
     "alchemy": "shared/alchemy",
     "port-assets": "shared/port-assets",
-    "pinest": "remote-code",
+    "pinest": "pinest",
     "node-gtk-vte": "node-gtk-vte",
     "re-harness": "shared/re-harness",
     "wails-dbman": "wails-dbman",
