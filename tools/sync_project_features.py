@@ -15,13 +15,12 @@ PROJECT_PATHS = {
     "benefactor": "benefactor",
     "sunbright": "sunbright",
     "zelda3d": "zelda3d",
-    "xmen2-recomp": "pc/xmen2",
+    "xmen2": "pc/xmen2",
     "lf2-port": "pc/lf2",
     "tomba2-engine": "psx/Tomba2Engine",
     "crash-bash": "psx/crashbash",
     "gears1": "x360/gears1",
     "psxport": "psx/psxport",
-    "recomp-x86": "shared/recomp-x86",
     "lucent": "lucent",
     "alchemy": "shared/alchemy",
     "port-assets": "shared/port-assets",
@@ -38,6 +37,7 @@ VALID_STATES = {"verified", "partial", "blocked", "missing"}
 DETAIL_HEADING = re.compile(r"^## (S\d+[a-z]?)\s+[—-]\s+(.+)$", re.MULTILINE)
 DETAIL_STATUS = re.compile(r"^Status:\s*`?(verified|partial|blocked|missing)`?\s*$", re.MULTILINE)
 COMPARISON_BASELINE_HEADING = re.compile(r"^## Comparison baseline\s*$", re.MULTILINE)
+COMPARISON_BASELINE_INLINE = re.compile(r"^Comparison baseline:\s*(.+)$", re.MULTILINE)
 SECOND_LEVEL_HEADING = re.compile(r"^##\s+", re.MULTILINE)
 
 
@@ -54,9 +54,12 @@ def parse_table(text: str, path: Path) -> list[Feature]:
         if not re.match(r"^\|\s*S\d+[a-z]?\s*\|", line):
             continue
         cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        if len(cells) != 5:
-            raise ValueError(f"{path}: state row must contain five cells: {line}")
-        source_id, label, state, _dependencies, _goals = cells
+        if len(cells) == 5:
+            source_id, label, state, _dependencies, _goals = cells
+        elif len(cells) == 4:
+            source_id, label, state, _evidence = cells
+        else:
+            raise ValueError(f"{path}: state row must contain four or five cells: {line}")
         if state not in VALID_STATES:
             raise ValueError(f"{path}: {source_id} has unsupported state {state!r}")
         features.append(Feature(source_id, label, state))
@@ -89,6 +92,9 @@ def parse_comparison_baseline(path: Path) -> str:
     text = path.read_text(encoding="utf-8")
     heading = COMPARISON_BASELINE_HEADING.search(text)
     if not heading:
+        inline = COMPARISON_BASELINE_INLINE.search(text)
+        if inline:
+            return inline.group(1).strip()
         raise ValueError(f"{path}: required Comparison baseline section is missing")
     next_heading = SECOND_LEVEL_HEADING.search(text, heading.end())
     section_end = next_heading.start() if next_heading else len(text)

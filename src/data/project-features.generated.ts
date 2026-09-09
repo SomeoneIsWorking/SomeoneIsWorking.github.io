@@ -10,29 +10,26 @@ export interface ProjectFeature {
 
 const comparisonBaselinesByProject = {
   benefactor:
-    "The baseline is the unmodified 1994 Amiga release running under a conventional emulator, including its original 320-pixel presentation, controls and jump behavior, password flow, floppy timing, and Amiga startup sequence.",
+    "The user-facing baseline is the unmodified 1994 Amiga release under a conventional emulator: 320-pixel presentation, original controls and jump behavior, password flow, floppy timing, and Amiga startup. The implementation baseline is this repository's native host plus offline-generated 68000-to-C execution. That execution method is retired and must not be regenerated, built, or run for new evidence. Its durable binary, native-subsystem, and PUAE-harness facts define the frontier that the intended native/interpreter product must re-establish independently.",
   sunbright:
-    "The baseline is the unmodified NTSC-U GameCube release of *Super Mario Sunshine* running on original hardware or through Dolphin, with the original GX renderer, 4:3 framing, 30 Hz presentation, and console execution. Sunbright's intended differences are native host execution, native semantic rendering, and smooth presentation between the original simulation ticks without changing gameplay. Factual capability coverage for Sunbright. Durable intent lives in `docs/project-goals.md`, atomic work in `docs/issues/`, and subsystem placement in `docs/codemap.md`. | ID | Capability / observable outcome | State | Dependencies | Goals | |---|---|---|---|---| | S001 | The recomp runtime boots and renders the game through Aurora GX | verified | — | — | | S002 | The native decomp runtime boots and renders representative game flow through Aurora GX | verified | — | G002 | | S003 | The recomp has a project-owned SDL3-GPU GX compatibility/reference renderer | partial | S001 | — | | S004 | The recomp feeds ordered 2D/UI draws and rigid or multi-matrix solid-colour, textured, masked, diffuse, and specular J3D material families to the shared PC-native semantic renderer above GX | partial | S001 | G003 | | S005 | The native decomp feeds the same semantic 2D/UI and J3D material families to that renderer through native-layout adapters | partial | S002, S004 | G004 | | S006 | Interpolated presentation covers every rendered target that should move between ticks | partial | S001 | G001 | | S007 | The native decomp is upstream-converged, semantically named, and complete for reached game behavior | partial | S002 | G002 |",
+    "The user-visible baseline is the unmodified NTSC-U GameCube release (`GMSE01`) running on original hardware or Dolphin with console execution, GX rendering, 4:3 framing, and normally 30 Hz presentation. The repository's former gameplay executor is absent; Sunbright currently has no gameplay executable while its shared runtime executor is missing.",
   zelda3d:
     "The baseline is the unmodified Nintendo 3DS releases of *Ocarina of Time 3D* and *Majora's Mask 3D* running on original hardware or through Azahar. Zelda3D's intended difference is one lawful native-PC experience that consumes the player's own remake assets while reproducing each remake's presentation and game-specific behavior outside a 3DS emulator.",
-  "xmen2-recomp":
+  xmen2:
     "The baseline is the unmodified 2005 Windows PC release of *X-Men Legends II* running on Windows or through Wine, with its original Direct3D 8 renderer, PC control defaults, prompts, settings, loading, and save flow. The port's intended differences are Wine-free native execution and a modern native-PC presentation, controller, settings, packaging, and diagnostics experience without changing the game. This is the authoritative inventory of what the port demonstrably does now and what remains partial, blocked, or absent. Epic intent belongs in [`project-goals.md`](project-goals.md), atomic work in [`issues/`](issues/), ownership in [`codemap.md`](codemap.md), and the ordered binary-evidence chain in [`re-frontier.md`](re-frontier.md). States: `verified` means the stated outcome was observed with durable evidence; `partial` names both the demonstrated subset and the exact remaining gap; `blocked` names its blocker; and `missing` means the capability is absent.",
   "lf2-port":
-    "The baseline is the unmodified Windows release of *Little Fighter 2 v2.0a* running on Windows or through Wine, with its fixed-resolution 4:3 DirectDraw presentation, original keyboard/joystick configuration, and manual game-file setup. The port's intended differences are native execution, modern display effects and aspect ratios, remappable multi-device controls, and packaged setup.",
+    "The user-facing baseline is the unmodified Windows release of *Little Fighter 2 v2.0a* running on Windows or through Wine: fixed-resolution 4:3 DirectDraw, original keyboard/joystick configuration, and manual game-file setup. The implementation baseline is the repository's previously verified native host behavior: boot, menus, matches, audio, and host enhancements. Those observations identify the frontier the native/JIT product must re-establish independently.",
   "tomba2-engine":
-    "The baseline is the unmodified PlayStation releases of *Tomba!* and *Tomba! 2* running on original hardware or through a PS1 emulator, with console execution, 4:3 framing, and original presentation cadence. Tomba Engine intends native game-engine ownership for both titles; Tomba! 2 additionally targets true widescreen and interpolated presentation, while Tomba! 1 intentionally adds widescreen only. This is the factual capability inventory for both titles in this repository. It does not infer one title's coverage from the other. Epic intent is in `project-goals.md`, atomic work in `issues/`, and ownership/placement in `codemap.md`. | ID | Capability / observable outcome | State | Dependencies | Goals | |---|---|---|---|---| | S001 | Default Tomba! 2 product reaches a usable PC-native game | partial | — | G001 | | S002 | Tomba! 2 behavior is independently compared against the original | partial | S001 | G001 | | S003 | Tomba! 2 game behavior is owned by readable native subsystems | partial | S001, S002 | G001 | | S004 | Tomba! 2 picture is produced completely from game-owned scene state | partial | S001, S003 | G002 | | S005 | Tomba! 2 true widescreen covers world visibility and 2D layout | partial | S004 | G002 | | S006 | Tomba! 2 interpolation covers moving camera, objects, and effects | partial | S004 | G002 | | S007 | Tomba! 2 accepts native player input through representative gameplay | partial | S001, S003 | G001 | | S008 | Tomba! 1 selected executable and disc provenance are established | partial | — | G003 | | S009 | Tomba! 1 evidence scaffold is integrated in the combined Clang build | verified | S008 | G003 | | S010 | Tomba! 1 actual product boots, renders, accepts input, and reaches gameplay | missing | S008, S009 | G003 | | S011 | Tomba! 1 true widescreen works in the actual product | missing | S010 | G004 | | S012 | Tomba! 1 and Tomba! 2 game-engine implementations are isolated | verified | — | G003 | | S013 | Tomba! 1 exposes widescreen only and no unrelated enhancement modes | verified | S012 | G004 | | S014 | Tomba! 2 sound effects and music work throughout the game | partial | S001, S003 | G001 | | S015 | Tomba! 2 saves, reloads, and survives a full restart | partial | S001, S003 | G001 | | S016 | Tomba! 2 movies play correctly on the native path | partial | S001, S003 | G001 | | S017 | Tomba! 2 area and scene transitions work throughout the game | partial | S001, S003 | G001 |",
+    "The external baseline is the unmodified PlayStation releases of *Tomba!* and *Tomba! 2* on original hardware or a trusted emulator. The immediate migration baseline is this repository's pre-migration native/offline-translated hybrid, whose remaining guest code was emitted offline and compiled into each product. The intended products retain title-native ownership while replacing that generated execution with runtime translation by `psxport` Lightrec. This inventory covers both titles without inferring one title's state from the other. Epic intent is in `project-goals.md`, migration order in `migration.md`, atomic work in `issues/`, and placement in `codemap.md`. | ID | Capability / observable outcome | State | Dependencies | Goals | |---|---|---|---|---| | S001 | Tomba! 2 reaches representative gameplay as a native/Lightrec product | blocked | — | G001 | | S002 | Tomba! 2 behavior is independently compared against the original | partial | S001 | G001 | | S003 | Tomba! 2 game behavior is owned by readable native subsystems | partial | S001, S002 | G001 | | S004 | Tomba! 2 picture is produced completely from game-owned scene state | partial | S001, S003 | G002 | | S005 | Tomba! 2 true widescreen covers world visibility and 2D layout | partial | S004 | G002 | | S006 | Tomba! 2 interpolation covers moving camera, objects, and effects | partial | S004 | G002 | | S007 | Tomba! 2 accepts native player input through representative gameplay | partial | S001, S003 | G001 | | S008 | Tomba! 1 selected executable and disc provenance are established | verified | — | G003 | | S009 | Tomba! 1 identity, isolation, and independent startup evidence exist | verified | S008 | G003 | | S010 | Tomba! 1 reaches representative gameplay as a native/Lightrec product | missing | S008, S009 | G003 | | S011 | Tomba! 1 true widescreen works in the actual product | missing | S010 | G004 | | S012 | Tomba! 1 and Tomba! 2 game-engine implementations are isolated | verified | — | G003 | | S013 | Tomba! 1 exposes widescreen only and no unrelated enhancement modes | verified | S012 | G004 | | S014 | Tomba! 2 sound effects and music work throughout the game | partial | S001, S003 | G001 | | S015 | Tomba! 2 saves, reloads, and survives a full restart | partial | S001, S003 | G001 | | S016 | Tomba! 2 movies play correctly | partial | S001, S003 | G001 | | S017 | Tomba! 2 area and scene transitions work throughout the game | partial | S001, S003 | G001 | | S018 | Both titles have removed their offline guest-source product paths | verified | — | G001, G003 | | S019 | Linux x86-64 asset-free native/Lightrec CI builds and tests the repository | verified | — | G001, G003 | | S020 | Windows x86-64 native/Lightrec CI builds and tests the repository | missing | — | G001, G003 | | S021 | macOS x86-64 and arm64 native/Lightrec CI builds and tests the repository | missing | — | G001, G003 | | S022 | Android arm64-v8a native/Lightrec CI assembles and tests the repository | missing | — | G001, G003 |",
   "crash-bash":
-    "The baseline is the unmodified USA PlayStation release of *Crash Bash* running on original hardware or through a PS1 emulator, with its retail game modes, 4:3 camera, 30 Hz presentation, and console execution. The port's intended differences are native host execution, a genuinely wider camera, and 60 Hz interpolated presentation without speeding up the 30 Hz game simulation. | ID | Capability / observable outcome | State | Dependencies | Goals | |---|---|---|---|---| | S001 | The selected USA disc, executable, and measured CRASHBSH.DAT code modules are reproducibly identified and derived | verified | — | G001 | | S002 | The retail boot reaches a guest-visible first frame with faithful drive timing | partial | S001 | G001 | | S003 | Resident code and every measured CRASHBSH.DAT module form a reproducible executable recompilation substrate | verified | S001 | G001 | | S004 | Crash Bash graphics are produced natively from decoded game state and look correct | partial | S002, S003 | G001, G002, G003 | | S005 | The native camera supports wider aspect ratios without changing vertical framing | partial | S004 | G002 | | S006 | Native camera and world transforms render between simulation ticks | partial | S004 | G003 | | S007 | Deterministic checks compare the port with independent retail behavior at proven boundaries | partial | S001 | G001, G002, G003 | | S008 | The retail game modes are reachable and playable end to end on the shipping native path | partial | S002, S004 | G001 | | S009 | Crashball reaches a live match and accepts player control on the native path | verified | S008 | G001 | | S010 | Battle Mode Crate Crush reaches a live match and accepts player control on the native path | verified | S008 | G001 | | S011 | Tournament Mode reaches its first live Crate Crush match and accepts player control | verified | S008 | G001 | | S012 | Polar Push reaches a visually correct, controllable live match on the native path | verified | S008 | G001 | | S013 | The remaining retail modes are reachable and playable on the native path | missing | S008 | G001 | | S014 | Retail music and sound effects play at the correct rate without premature truncation | partial | S002 | G001 | ### S009 — Crashball: verified Evidence: the tracked 3,740-frame shipping-native replay enters a live match and drives the player left and right without a recompilation miss, fatal, watchdog, or guest-VSync violation. ### S010 — Battle Mode Crate Crush: verified Evidence: the tracked 15,401-frame shipping-native replay crosses the objective, controls, and special-items pages, enters a live Crate Crush match, and drives the player in both directions. ### S011 — Tournament Crate Crush: verified Evidence: the tracked 7,910-frame shipping-native replay reaches Tournament Mode's first live Crate Crush match and drives the player in both directions without a native-path failure. ### S012 — Polar Push: verified Evidence: the shipping native path now reaches the Polar Push objective and controls pages, enters a live match, and accepts player control. A direct debug-server session at the mode-selection arena showed the Polar Panic portal, accepted Cross through the objective and controls pages, and produced a complete match scene with the four-player HUD, arena, ships, balls, and player ship. Holding Left moved the player to the lower-left and holding Right moved it back to the lower-right without a fatal or render failure. The recorded 17,682-frame `replays/flow/polar-push-control.pad` replay reproduces the whole route on the shipping native renderer, consumes every frame, and exits with zero recompilation miss, fatal, watchdog, guest-VSync violation, or dropped render layer. ### S013 — Remaining modes: missing Missing capability: no durable shipping-native play evidence currently covers the retail modes beyond the Crashball, Crate Crush, and partial Polar Push routes listed above. ### S014 — Audio playback: partial Framework `773d839e` replaces the host sink's empty start and four-field (~67 ms) queue with a bounded 180 ms playback cushion that re-primes after an underrun. An isolated SDL-device run sustained 44,097 samples/s against the 44,100 Hz target with zero dropped fields, while a 600-frame pre/post WAV was byte-identical. This verifies that host delivery no longer starves during the measured run and that the change does not alter SPU timing or PCM. Gap: hardware listening and longer gameplay coverage have not yet verified every title audio path.",
-  gears1:
-    "The baseline is the unmodified Xbox 360 release of *Gears of War* running on original hardware or through Xenia, with its Xenos command stream, console services, and title-controlled 30 Hz rendering. GearsUE3 intends a shared native PC engine for the series, with native semantic subsystems, exact retained/native comparison, uncapped presentation, and user-owned-disc provisioning. This ledger records independently observable capability coverage. Goals define why GearsUE3 exists, issues record atomic work, and the codemap records ownership; neither substitutes for this done/partial/missing inventory. | ID | Capability | State | Dependencies | Goals | |---|---|---|---|---| | S001 | Exact Gears 1 revision boots and reaches gameplay through the retained recomp path | verified | — | G001, G002 | | S002 | Gears 1 compatibility renderer produces bounded, retired, headless gameplay frames | verified | S001 | G002, G003 | | S003 | Native RHI semantic stream represents and checks the observed Gears 1 frame boundary | partial | S001, S002 | G001, G002, G003 | | S004 | Grounded native RHI operations replace retained execution with same-binary controls | partial | S003 | G001, G002, G003 | | S005 | Complete native RHI frontend bypasses title PM4 construction and compatibility reconstruction | missing | S003, S004 | G001, G002, G003 | | S006 | Every Gears UE3 title passes an exact-revision compatibility gate | missing | S001, S002 | G001, G002 | | S007 | Native engine sustains the 8.33 ms / 120 fps renderer budget on representative gameplay | missing | S005 | G003 | | S008 | Public distribution provisions from a user-owned game image through `./run.sh` | partial | — | G004 |",
+    "The baseline is the unmodified USA PlayStation release of *Crash Bash* running on original hardware or through a PS1 emulator, with retail game modes, a 4:3 camera, 30 Hz presentation, and console CPU execution. The intended product authenticates the user's game image, executes selected behavior in native title owners, dynamically translates all remaining MIPS through psxport's pinned Lightrec revision, widens the camera, and adds 60 Hz interpolated presentation without accelerating simulation.",
+  gears1: "retail Xbox 360 Gears titles running in an emulator.",
   psxport:
-    "The baseline is implementing each PlayStation port as a one-off emulator-derived runtime or running the original title wholly inside a PS1 emulator. psxport instead provides a reusable fail-closed MIPS-to-C substrate, native console-service owners, differential comparison, and title-owned seams for native rendering, widescreen, and interpolation.",
-  "recomp-x86":
-    "The baseline is maintaining a separate ad-hoc x86 translator, export scanner, and freshness policy in each consuming port. recomp-x86 centralizes those mechanics in one fail-closed translator while leaving each game's loader, scheduler, guest memory, and native overrides in its own repository.",
+    "The baseline is the previous native PSX host framework with no usable product CPU executor. The tree now has a Linux x86-64 Lightrec execution path; the intended complete delta remains a dynarec-default Lightrec/native hybrid that executes authenticated user images at runtime and retains the existing native device, rendering, audio, input, HLE, and enhancement owners.",
   lucent:
     "The baseline is each native application independently reimplementing logging, configuration, user-data paths, local HTTP transport, safe archive import, and touch routing. Lucent provides those title-neutral runtime capabilities once, with bounded behavior and tested ownership boundaries.",
   alchemy:
-    "The baseline is every Alchemy-engine game port carrying its own container decoders, archive tools, asset viewers, and controller glue. This library provides one measured, reusable native owner for the shared IGB/XMLB/ARK formats, semantic assets, inspection tools, and platform-neutral input.",
+    "The baseline is every Alchemy-engine game port carrying its own container decoders, archive tools, asset viewers, controller glue, and eventually title-local native engine replacements. This repository already provides measured shared libraries and tools, but no gameplay product currently links and exercises them as its engine boundary.",
   "port-assets":
     "The baseline is every port drawing or sourcing its own inconsistent controller, keyboard, device, and touch prompts. port-assets provides one original, scalable, target-size-checked visual language that consumers can label and render for their actual bindings.",
   pinest:
@@ -56,152 +53,275 @@ const featuresByProject = {
     {
       sourceId: "S001",
       label:
-        "The game boots and plays natively from player-supplied disks without an Amiga emulator in the shipping process",
-      state: "verified",
+        "The complete game boots, transitions among all runtime images, and plays all 60 levels through the intended product",
+      state: "partial",
     },
     {
       sourceId: "S002",
-      label:
-        "A native pause and options interface applies and persists modern settings without editing configuration files",
-      state: "verified",
+      label: "Native pause/options apply and persist modern settings in game",
+      state: "partial",
     },
     {
       sourceId: "S003",
       label:
-        "Keyboard, hot-pluggable controllers, touch input, rebinding, and an optional alternate control scheme work in the shipping game",
-      state: "verified",
+        "Keyboard, hot-pluggable controllers, touch, rebinding, and alternate controls share logical actions",
+      state: "partial",
     },
     {
       sourceId: "S004",
-      label:
-        "AppImage and Android releases provide no-terminal disk setup without packaging game assets",
-      state: "verified",
+      label: "Android provides no-terminal disk setup without packaged game assets",
+      state: "partial",
     },
     {
       sourceId: "S005",
-      label: "Recompiled M68K gameplay behavior is replaced by readable native engine subsystems",
+      label:
+        "Native owners plus `shared/amigaport` execute every non-native 68000 path directly from authenticated runtime images",
       state: "partial",
     },
     {
       sourceId: "S006",
       label:
-        "A side-by-side PUAE comparison harness and runtime debugging tools can drive, inspect, capture, and compare execution",
-      state: "verified",
+        "PUAE differential scenarios and interactive controls are preserved as an independent oracle for the shipping interpreter",
+      state: "partial",
     },
     {
       sourceId: "S007",
       label:
-        "Turbo, hyper, and hold-to-fast-forward increase game speed while music and sound effects remain at normal speed",
-      state: "verified",
+        "Turbo, hyper, and hold-to-fast-forward change gameplay pace while audio remains at normal speed",
+      state: "partial",
     },
     {
       sourceId: "S008",
       label:
-        "An optional platformer-physics model adds variable-height jumping, air control, momentum, and tunable motion while preserving classic physics",
-      state: "verified",
+        "Optional platformer physics provides variable jump, air control, momentum, and tunable motion while classic physics remains",
+      state: "partial",
     },
     {
       sourceId: "S009",
-      label: "A 60-level selector, completion progress, and level locks replace password entry",
-      state: "verified",
+      label: "A 60-level selector, completion progress, and locks replace password entry",
+      state: "partial",
     },
     {
       sourceId: "S010",
       label:
-        "Selectable native software and hardware renderers add ambient-darkness and character drop-shadow effects while retaining the faithful renderer",
-      state: "verified",
+        "Faithful, native software, and Vulkan renderers provide selectable lighting and shadow effects",
+      state: "partial",
     },
     {
       sourceId: "S011",
       label:
-        "True widescreen renders additional simulated world at 16:9, 21:9, or the live window width instead of stretching the original frame",
-      state: "verified",
+        "16:9, 21:9, and live-window widescreen reveal additional simulated world rather than stretching",
+      state: "partial",
     },
     {
       sourceId: "S012",
-      label:
-        "Native one-frame boot bypasses the Amiga startup sequence, and direct disk loading removes multi-second floppy loading waits",
-      state: "verified",
+      label: "Native boot and disk/decompression owners remove Amiga startup and floppy waits",
+      state: "partial",
     },
     {
       sourceId: "S013",
-      label: "A free camera can detach from gameplay and pan in real time or while paused",
-      state: "verified",
+      label: "Free camera pans in real time or while paused",
+      state: "partial",
     },
     {
       sourceId: "S014",
-      label:
-        "The original Easy, Normal, and Hard difficulty selector is restored and usable from the main menu",
-      state: "verified",
+      label: "Easy, Normal, and Hard selection is restored in the main menu",
+      state: "partial",
     },
     {
       sourceId: "S015",
-      label:
-        "Skip-intro, unlock-all-levels, and light-or-disabled fall-damage options provide cheats and accessibility controls",
-      state: "verified",
+      label: "Skip intro, unlock all levels, and reduced/disabled fall damage are configurable",
+      state: "partial",
     },
     {
       sourceId: "S016",
-      label:
-        "Pickup and interaction reach can be extended independently of the selected control scheme",
-      state: "verified",
+      label: "Pickup and interaction reach can be extended independently of control scheme",
+      state: "partial",
     },
     {
       sourceId: "S017",
       label:
-        "Savestates, direct level entry, headless execution, frame profiling, and runtime probes support development and testing",
-      state: "verified",
+        "Savestates, direct level entry, headless driving, profiling, and runtime probes support development",
+      state: "partial",
     },
     {
       sourceId: "S018",
-      label: "Player-facing save slots include names, timestamps, and screenshot previews",
+      label: "Player-facing save slots provide names, timestamps, and screenshot previews",
       state: "missing",
     },
     {
       sourceId: "S019",
-      label: "Hold-to-rewind restores recent game states through a bounded savestate history",
+      label: "Hold-to-rewind restores recent states from a bounded history",
       state: "missing",
+    },
+    {
+      sourceId: "S020",
+      label:
+        "`shared/amigaport` supplies complete 68000 PC/SR/exception/cycle state and a maintained interpreter owner",
+      state: "partial",
+    },
+    {
+      sourceId: "S021",
+      label:
+        "Image-generation-aware execution, overrides, and scoped original calls work across all four address-reusing images",
+      state: "partial",
+    },
+    {
+      sourceId: "S022",
+      label:
+        "Gameplay uses one shared interpreter CPU owner and contains no generated/static execution or direct diagnostic-emulator dependency",
+      state: "partial",
+    },
+    {
+      sourceId: "S023",
+      label:
+        "Representative interactive gameplay conforms and meets performance gates through native/interpreter execution on x86-64, Apple Silicon macOS, and Android arm64-v8a",
+      state: "missing",
+    },
+    {
+      sourceId: "S024",
+      label:
+        "Offline translator, generated corpus/dispatcher, generation-only seeds, and static-only tests are absent",
+      state: "verified",
+    },
+    {
+      sourceId: "S025",
+      label: "Asset-free source-policy CI runs from a full-history checkout",
+      state: "verified",
+    },
+    {
+      sourceId: "S026",
+      label: "Windows CI produces an asset-free package from the native/interpreter product",
+      state: "verified",
+    },
+    {
+      sourceId: "S027",
+      label: "macOS CI produces an Apple Silicon `.app` from the native/interpreter product",
+      state: "verified",
+    },
+    {
+      sourceId: "S028",
+      label: "Linux CI produces an asset-free x86-64 AppImage",
+      state: "verified",
+    },
+    {
+      sourceId: "S029",
+      label: "Android CI produces a signed arm64-v8a release APK",
+      state: "partial",
+    },
+    {
+      sourceId: "S030",
+      label: "WASM builds and deploys the same product boundary to GitHub Pages",
+      state: "verified",
+    },
+    {
+      sourceId: "S031",
+      label: "Desktop and browser first-run setup browse for and validate the three player disks",
+      state: "partial",
     },
   ],
   sunbright: [
     {
       sourceId: "S001",
-      label: "The recomp runtime boots and renders the game through Aurora GX",
-      state: "verified",
+      label:
+        "Exact `GMSE01` boots under `gcnport`/Dolphin JIT and reaches the `J3DShape::draw` runtime hook at `0x802e0390`",
+      state: "missing",
     },
     {
       sourceId: "S002",
       label:
-        "The native decomp runtime boots and renders representative game flow through Aurora GX",
-      state: "verified",
+        "`gcnport` supplies a title-neutral Dolphin dynarec executor with image identity, bounded exits, invalidation, and diagnostics",
+      state: "missing",
     },
     {
       sourceId: "S003",
-      label: "The recomp has a project-owned SDL3-GPU GX compatibility/reference renderer",
-      state: "partial",
+      label:
+        "Sunbright native overrides and original calls use robust image-scoped runtime dispatch",
+      state: "missing",
     },
     {
       sourceId: "S004",
       label:
-        "The recomp feeds ordered 2D/UI draws and rigid or multi-matrix solid-colour, textured, masked, diffuse, and specular J3D material families to the shared PC-native semantic renderer above GX",
+        "The PC-native semantic renderer covers the complete visible J3D/J2D/particle/effect stream",
       state: "partial",
     },
     {
       sourceId: "S005",
       label:
-        "The native decomp feeds the same semantic 2D/UI and J3D material families to that renderer through native-layout adapters",
+        "Native decomp adapters and recovered source provide independent semantic and behavior evidence",
       state: "partial",
     },
     {
       sourceId: "S006",
       label:
-        "Interpolated presentation covers every rendered target that should move between ticks",
+        "Smooth presentation covers every eligible moving source and keeps native-rate modes separate",
       state: "partial",
     },
     {
       sourceId: "S007",
+      label: "Reached decomp behavior is upstream-converged, named, and implemented from evidence",
+      state: "partial",
+    },
+    {
+      sourceId: "S008",
+      label: "The native/dynarec product passes representative interactive gameplay conformance",
+      state: "missing",
+    },
+    {
+      sourceId: "S009",
       label:
-        "The native decomp is upstream-converged, semantically named, and complete for reached game behavior",
+        "Offline generator, emitted corpus, static dispatcher/runtime glue, tests, and launch paths are absent",
+      state: "verified",
+    },
+    {
+      sourceId: "S010",
+      label:
+        "Independent Dolphin/decomp/binary oracle evidence can locate first divergence and prove controls",
+      state: "verified",
+    },
+    {
+      sourceId: "S011",
+      label: "Native audio is complete and integrated with the native/dynarec gameplay product",
+      state: "partial",
+    },
+    {
+      sourceId: "S012",
+      label:
+        "Application lifecycle, typed configuration, Lucent logging, and structure boundaries are mechanically enforced",
+      state: "partial",
+    },
+    {
+      sourceId: "S013",
+      label:
+        "Zero-argument launcher provisions and runs only the native/dynarec product from a user-supplied image",
+      state: "blocked",
+    },
+    {
+      sourceId: "S017",
+      label:
+        "JIT gameplay is qualified independently on x86_64, Apple Silicon macOS AArch64, and Android arm64-v8a",
+      state: "missing",
+    },
+    {
+      sourceId: "S018",
+      label:
+        "Asset-free automation verifies the redistributable native renderer and tooling on supported hosts",
+      state: "partial",
+    },
+    {
+      sourceId: "S014",
+      label: "Desktop packages provide no-terminal first-run setup and contain no game content",
+      state: "missing",
+    },
+    {
+      sourceId: "S015",
+      label:
+        "Widescreen renders additional world coverage through projection/viewport/scissor ownership",
+      state: "partial",
+    },
+    {
+      sourceId: "S016",
+      label: "Native input, controls, saves, and settings work through one typed product policy",
       state: "partial",
     },
   ],
@@ -248,16 +368,38 @@ const featuresByProject = {
         "The AppImage accepts four direct ROMs or bounded ZIPs and persists validated choices without shipping game content",
       state: "partial",
     },
+    {
+      sourceId: "S008",
+      label:
+        "Linux CI builds the complete app and both cores and executes asset-free native contracts",
+      state: "partial",
+    },
+    {
+      sourceId: "S009",
+      label: "macOS arm64 CI exercises portable policy seams; complete app delivery remains open",
+      state: "partial",
+    },
+    {
+      sourceId: "S010",
+      label:
+        "Windows x86_64 CI exercises portable policy seams; complete app delivery remains open",
+      state: "partial",
+    },
+    {
+      sourceId: "S011",
+      label: "Android has a native package target and an asset-free CI gate",
+      state: "missing",
+    },
   ],
-  "xmen2-recomp": [
+  xmen2: [
     {
       sourceId: "S001",
       label: "Fresh-clone provisioning and the default native launcher",
-      state: "verified",
+      state: "partial",
     },
     {
       sourceId: "S002",
-      label: "Wine-free native execution of the recompiled PC game",
+      label: "Native-overrides + x86port-JIT gameplay execution",
       state: "partial",
     },
     {
@@ -311,11 +453,6 @@ const featuresByProject = {
       state: "partial",
     },
     {
-      sourceId: "S013",
-      label: "Secondary native recompilation of the Xbox build",
-      state: "partial",
-    },
-    {
       sourceId: "S014",
       label: "Apple Silicon macOS native host support",
       state: "partial",
@@ -337,15 +474,35 @@ const featuresByProject = {
     },
     {
       sourceId: "S018",
-      label: "Android APK shell, touch controls, and measured mobile performance",
+      label: "Android APK shell and measured mobile performance",
+      state: "partial",
+    },
+    {
+      sourceId: "S020",
+      label: "Platform-neutral touch play on any touchscreen",
+      state: "partial",
+    },
+    {
+      sourceId: "S021",
+      label: "Web (WASM + PWA) product with browser-side install",
+      state: "partial",
+    },
+    {
+      sourceId: "S022",
+      label: "Native Windows host package and CI release",
+      state: "missing",
+    },
+    {
+      sourceId: "S019",
+      label: "Proven shared Alchemy gameplay boundary and deferred MUA adoption",
       state: "partial",
     },
   ],
   "lf2-port": [
     {
       sourceId: "S001",
-      label: "The native port boots, navigates menus, and plays VS and Stage Mode with audio",
-      state: "verified",
+      label: "The intended product boots, navigates menus, and plays VS and Stage Mode with audio",
+      state: "partial",
     },
     {
       sourceId: "S002",
@@ -364,9 +521,8 @@ const featuresByProject = {
     },
     {
       sourceId: "S005",
-      label:
-        "The x86 game and Windows platform calls run through native static recompilation and SDL owners",
-      state: "verified",
+      label: "Native overrides plus `x86port` JIT execute the authenticated LF2 image at runtime",
+      state: "partial",
     },
     {
       sourceId: "S006",
@@ -376,17 +532,17 @@ const featuresByProject = {
     },
     {
       sourceId: "S007",
-      label: "Native character lighting and cast shadows can be configured in the port menu",
+      label: "Native character lighting and cast shadows are configurable in the port menu",
       state: "verified",
     },
     {
       sourceId: "S008",
-      label: "Two physical controllers can join as two local players without manual slot setup",
+      label: "Two physical controllers join as two local players without manual slot setup",
       state: "partial",
     },
     {
       sourceId: "S009",
-      label: "Controllers can connect, disconnect, and reconnect without restarting the game",
+      label: "Controllers connect, disconnect, and reconnect without restarting the game",
       state: "partial",
     },
     {
@@ -396,18 +552,18 @@ const featuresByProject = {
     },
     {
       sourceId: "S011",
-      label: "Menus and character selection use modern anti-aliased text",
+      label: "Menus and character selection use modern anti-aliased host text",
       state: "verified",
     },
     {
       sourceId: "S012",
-      label: "The macOS native build and Metal renderer are release-qualified",
+      label: "The macOS native/JIT build and Metal renderer are release-qualified",
       state: "partial",
     },
     {
       sourceId: "S013",
       label:
-        "The Android ARM64 build provides touch controls and private installer/folder/ZIP setup",
+        "The Android ARM64 native/JIT build provides touch controls and private installer/folder/ZIP setup",
       state: "partial",
     },
     {
@@ -415,12 +571,50 @@ const featuresByProject = {
       label: "Network play from the original game is available natively",
       state: "missing",
     },
+    {
+      sourceId: "S015",
+      label:
+        "Representative gameplay conforms through the native/JIT product on each released host",
+      state: "missing",
+    },
+    {
+      sourceId: "S016",
+      label:
+        "Gameplay defaults to JIT, exposes no explicit interpreter mode, and accounts for bounded fallback by reason and coverage",
+      state: "partial",
+    },
+    {
+      sourceId: "S017",
+      label: "Retired title-specific execution interfaces and toolchains remain absent",
+      state: "verified",
+    },
+    {
+      sourceId: "S018",
+      label: "`shared/x86port` supplies the x86-64 product JIT and bounded fallback contract",
+      state: "partial",
+    },
+    {
+      sourceId: "S019",
+      label:
+        "`shared/x86port` supplies a qualified ARM64 product JIT backend for macOS and Android",
+      state: "partial",
+    },
+    {
+      sourceId: "S020",
+      label: "Asset-free Linux x86-64 native/JIT product CI runs from exact full-history inputs",
+      state: "partial",
+    },
+    {
+      sourceId: "S021",
+      label: "Browser WebAssembly runs the same native/JIT game with persistent imported files",
+      state: "partial",
+    },
   ],
   "tomba2-engine": [
     {
       sourceId: "S001",
-      label: "Default Tomba! 2 product reaches a usable PC-native game",
-      state: "partial",
+      label: "Tomba! 2 reaches representative gameplay as a native/Lightrec product",
+      state: "blocked",
     },
     {
       sourceId: "S002",
@@ -455,16 +649,16 @@ const featuresByProject = {
     {
       sourceId: "S008",
       label: "Tomba! 1 selected executable and disc provenance are established",
-      state: "partial",
+      state: "verified",
     },
     {
       sourceId: "S009",
-      label: "Tomba! 1 evidence scaffold is integrated in the combined Clang build",
+      label: "Tomba! 1 identity, isolation, and independent startup evidence exist",
       state: "verified",
     },
     {
       sourceId: "S010",
-      label: "Tomba! 1 actual product boots, renders, accepts input, and reaches gameplay",
+      label: "Tomba! 1 reaches representative gameplay as a native/Lightrec product",
       state: "missing",
     },
     {
@@ -494,7 +688,7 @@ const featuresByProject = {
     },
     {
       sourceId: "S016",
-      label: "Tomba! 2 movies play correctly on the native path",
+      label: "Tomba! 2 movies play correctly",
       state: "partial",
     },
     {
@@ -502,28 +696,55 @@ const featuresByProject = {
       label: "Tomba! 2 area and scene transitions work throughout the game",
       state: "partial",
     },
+    {
+      sourceId: "S018",
+      label: "Both titles have removed their offline guest-source product paths",
+      state: "verified",
+    },
+    {
+      sourceId: "S019",
+      label: "Linux x86-64 asset-free native/Lightrec CI builds and tests the repository",
+      state: "verified",
+    },
+    {
+      sourceId: "S020",
+      label: "Windows x86-64 native/Lightrec CI builds and tests the repository",
+      state: "missing",
+    },
+    {
+      sourceId: "S021",
+      label: "macOS x86-64 and arm64 native/Lightrec CI builds and tests the repository",
+      state: "missing",
+    },
+    {
+      sourceId: "S022",
+      label: "Android arm64-v8a native/Lightrec CI assembles and tests the repository",
+      state: "missing",
+    },
   ],
   "crash-bash": [
     {
       sourceId: "S001",
       label:
-        "The selected USA disc, executable, and measured CRASHBSH.DAT code modules are reproducibly identified and derived",
+        "The selected USA disc, executable, and measured `CRASHBSH.DAT` modules are reproducibly authenticated and provisioned",
       state: "verified",
     },
     {
       sourceId: "S002",
-      label: "The retail boot reaches a guest-visible first frame with faithful drive timing",
+      label:
+        "The retail boot and loaded-image sequence have a recorded first-frame and menu frontier to re-establish through the dynarec",
       state: "partial",
     },
     {
       sourceId: "S003",
       label:
-        "Resident code and every measured CRASHBSH.DAT module form a reproducible executable recompilation substrate",
-      state: "verified",
+        "The gameplay product executes every non-native guest path through psxport's pinned Lightrec dynarec with bounded, reason-accounted fallback",
+      state: "missing",
     },
     {
       sourceId: "S004",
-      label: "Crash Bash graphics are produced natively from decoded game state and look correct",
+      label:
+        "Crash Bash graphics are produced natively from decoded game state and look correct across representative content",
       state: "partial",
     },
     {
@@ -539,24 +760,22 @@ const featuresByProject = {
     {
       sourceId: "S007",
       label:
-        "Deterministic checks compare the port with independent retail behavior at proven boundaries",
+        "Deterministic diagnostics compare reached hybrid-product boundaries with independent retail behavior and prove both answers",
       state: "partial",
     },
     {
       sourceId: "S008",
-      label:
-        "The retail game modes are reachable and playable end to end on the shipping native path",
+      label: "The retail game modes are reachable and playable end to end on the hybrid product",
       state: "partial",
     },
     {
       sourceId: "S009",
-      label: "Crashball reaches a live match and accepts player control on the native path",
+      label: "The Crashball gameplay scenario reaches a live match and accepts player control",
       state: "verified",
     },
     {
       sourceId: "S010",
-      label:
-        "Battle Mode Crate Crush reaches a live match and accepts player control on the native path",
+      label: "Battle Mode Crate Crush reaches a live match and accepts player control",
       state: "verified",
     },
     {
@@ -566,12 +785,12 @@ const featuresByProject = {
     },
     {
       sourceId: "S012",
-      label: "Polar Push reaches a visually correct, controllable live match on the native path",
+      label: "Polar Push reaches a visually correct, controllable live match",
       state: "verified",
     },
     {
       sourceId: "S013",
-      label: "The remaining retail modes are reachable and playable on the native path",
+      label: "The remaining retail modes are reachable and playable",
       state: "missing",
     },
     {
@@ -579,141 +798,172 @@ const featuresByProject = {
       label: "Retail music and sound effects play at the correct rate without premature truncation",
       state: "partial",
     },
+    {
+      sourceId: "S015",
+      label:
+        "All 27 native overrides install by runtime image identity and all 15 original-body calls execute through the dynarec",
+      state: "partial",
+    },
+    {
+      sourceId: "S016",
+      label: "Representative interactive gameplay passes on the native/dynarec product",
+      state: "missing",
+    },
+    {
+      sourceId: "S017",
+      label:
+        "Every static product path is deleted before dynarec implementation and mechanically excluded",
+      state: "verified",
+    },
+    {
+      sourceId: "S018",
+      label:
+        "Hosted CI truthfully covers applicable Linux, Windows, macOS, and Android product boundaries",
+      state: "partial",
+    },
   ],
   gears1: [
     {
       sourceId: "S001",
-      label: "Exact Gears 1 revision boots and reaches gameplay through the retained recomp path",
+      label: "Exact Gears 1 executable identity and normalized image validation",
       state: "verified",
     },
     {
       sourceId: "S002",
-      label: "Gears 1 compatibility renderer produces bounded, retired, headless gameplay frames",
-      state: "verified",
+      label: "Bounded user-image/archive provisioning without derived guest source",
+      state: "partial",
     },
     {
       sourceId: "S003",
-      label: "Native RHI semantic stream represents and checks the observed Gears 1 frame boundary",
+      label: "Executor-independent native renderer and RHI contracts",
       state: "partial",
     },
     {
       sourceId: "S004",
-      label: "Grounded native RHI operations replace retained execution with same-binary controls",
+      label: "Native Gears 1 audio-mix operation",
       state: "partial",
     },
     {
       sourceId: "S005",
-      label:
-        "Complete native RHI frontend bypasses title PM4 construction and compatibility reconstruction",
-      state: "missing",
+      label: "Native notified operation-kind-3 GPU ticket wait",
+      state: "partial",
     },
     {
       sourceId: "S006",
-      label: "Every Gears UE3 title passes an exact-revision compatibility gate",
-      state: "missing",
+      label: "Xenia-backed `x360port` execution boundary",
+      state: "partial",
     },
     {
       sourceId: "S007",
-      label:
-        "Native engine sustains the 8.33 ms / 120 fps renderer budget on representative gameplay",
-      state: "missing",
+      label: "Gears 1 leaf/import/override discriminator",
+      state: "partial",
     },
     {
       sourceId: "S008",
-      label: "Public distribution provisions from a user-owned game image through `./run.sh`",
+      label: "Bounded runtime interpreter fallback",
+      state: "missing",
+    },
+    {
+      sourceId: "S009",
+      label: "Representative interactive Gears 1 gameplay",
+      state: "missing",
+    },
+    {
+      sourceId: "S010",
+      label: "Apple Silicon macOS A64 execution",
+      state: "missing",
+    },
+    {
+      sourceId: "S011",
+      label: "Android arm64-v8a A64 execution",
+      state: "missing",
+    },
+    {
+      sourceId: "S012",
+      label: "Complete native RHI frontend",
+      state: "missing",
+    },
+    {
+      sourceId: "S013",
+      label: "Native 8.33 ms / 120 fps renderer budget",
+      state: "missing",
+    },
+    {
+      sourceId: "S014",
+      label: "Gears 2, Gears 3, and Judgment exact-revision conformance",
+      state: "missing",
+    },
+    {
+      sourceId: "S015",
+      label: "Generated guest-source product and translator-only surfaces absent",
+      state: "verified",
+    },
+    {
+      sourceId: "S016",
+      label: "Independently authored shared UE3/Xbox contract",
+      state: "verified",
+    },
+    {
+      sourceId: "S017",
+      label: "Asset-free native/JIT boundary CI",
       state: "partial",
     },
   ],
   psxport: [
     {
-      sourceId: "S001",
-      label: "MIPS R3000A executables are translated into deterministic generated C",
-      state: "verified",
-    },
-    {
-      sourceId: "S002",
-      label: "Native runtime owners provide GPU, SPU, GTE, MDEC, CD, XA/FMV, and BIOS services",
+      sourceId: "S012",
+      label: "Per-`Core` dynarec-default Lightrec backend",
       state: "partial",
     },
     {
-      sourceId: "S003",
-      label:
-        "Shipping differential infrastructure compares independent guest-state snapshots and frame boundaries",
-      state: "verified",
-    },
-    {
-      sourceId: "S004",
-      label:
-        "Game-owned native producers replace guest graphics while supporting widescreen and interpolation",
+      sourceId: "S013",
+      label: "Explicit architectural state and bounded exits",
       state: "partial",
     },
     {
-      sourceId: "S005",
-      label: "Multiple title repositories consume the framework through narrow title-owned seams",
-      state: "verified",
-    },
-    {
-      sourceId: "S006",
-      label: "The native GPU owner supports PSX drawing plus title-owned widescreen presentation",
+      sourceId: "S014",
+      label: "Image/generation-scoped native and original calls",
       state: "partial",
     },
     {
-      sourceId: "S007",
-      label: "The native SPU owner produces game sound without a PS1 emulator process",
+      sourceId: "S015",
+      label: "Central executable-code invalidation",
       state: "partial",
     },
     {
-      sourceId: "S008",
-      label:
-        "The native GTE owner provides geometry and lighting operations used by translated games",
+      sourceId: "S016",
+      label: "Product path excludes offline guest generation and unbounded interpreter modes",
+      state: "verified",
+    },
+    {
+      sourceId: "S017",
+      label: "Reusable native PSX platform services",
       state: "partial",
     },
     {
-      sourceId: "S009",
-      label: "Native MDEC and FMV owners decode and present PlayStation movies",
+      sourceId: "S018",
+      label: "Independent test oracle",
       state: "partial",
     },
     {
-      sourceId: "S010",
-      label:
-        "Native CD and XA owners provide game data and streamed audio from user-supplied media",
+      sourceId: "S019",
+      label: "Narrow multi-title framework seam",
       state: "partial",
     },
     {
-      sourceId: "S011",
-      label: "Native BIOS and SDK services replace the console firmware calls exercised by ports",
+      sourceId: "S020",
+      label: "Native rendering and title-owned enhancements",
       state: "partial",
     },
-  ],
-  "recomp-x86": [
     {
-      sourceId: "S001",
-      label:
-        "The translator emits C bodies and native dispatch metadata from x86-32 module exports",
-      state: "verified",
+      sourceId: "S021",
+      label: "Portable desktop and Android delivery",
+      state: "missing",
     },
     {
-      sourceId: "S002",
-      label:
-        "Unsupported instructions and invalid or empty inputs fail loudly instead of producing incomplete output",
-      state: "verified",
-    },
-    {
-      sourceId: "S003",
-      label: "Generated output is tied to translator, input, and native-override revisions",
-      state: "verified",
-    },
-    {
-      sourceId: "S004",
-      label:
-        "Ghidra exports, pointer-table seeds, DLL thunks, and hosted analysis support feed the same translator",
-      state: "verified",
-    },
-    {
-      sourceId: "S005",
-      label:
-        "Port-specific loaders, schedulers, guest memory, and native overrides remain outside the shared translator",
-      state: "verified",
+      sourceId: "S022",
+      label: "Mechanical structure/config/logging/tooling policy",
+      state: "partial",
     },
   ],
   lucent: [
@@ -764,6 +1014,33 @@ const featuresByProject = {
       sourceId: "S009",
       label: "Bounded ZIP discovery and extraction safely imports exactly one selected payload",
       state: "verified",
+    },
+    {
+      sourceId: "S010",
+      label:
+        "Native CMake and CTest verification runs on supported desktop hosts without game assets",
+      state: "partial",
+    },
+    {
+      sourceId: "S011",
+      label: "Linux applications select one local file asynchronously through a native GTK chooser",
+      state: "partial",
+    },
+    {
+      sourceId: "S012",
+      label: "Linux applications read regular files asynchronously within a strict byte budget",
+      state: "verified",
+    },
+    {
+      sourceId: "S013",
+      label:
+        "Linux applications stage immutable binary backing files asynchronously with bounded lifetime storage",
+      state: "verified",
+    },
+    {
+      sourceId: "S014",
+      label: "Browser applications stage and access files through private origin storage",
+      state: "partial",
     },
   ],
   alchemy: [
@@ -821,6 +1098,27 @@ const featuresByProject = {
         "FB/WAD, ARK class/vtable, font, and conversation formats have reusable inspection tools",
       state: "partial",
     },
+    {
+      sourceId: "S011",
+      label: "X-Men 2 gameplay links and executes a conformed shared Alchemy contract",
+      state: "missing",
+    },
+    {
+      sourceId: "S012",
+      label: "MUA gameplay links and executes proven shared Alchemy contracts",
+      state: "missing",
+    },
+    {
+      sourceId: "S013",
+      label:
+        "Shipping library configuration, diagnostics, language, and dependency boundaries are mechanically enforced",
+      state: "verified",
+    },
+    {
+      sourceId: "S014",
+      label: "Each consumer resolves one immutable Alchemy revision for tools and runtime targets",
+      state: "partial",
+    },
   ],
   "port-assets": [
     {
@@ -849,6 +1147,11 @@ const featuresByProject = {
       label:
         "Manifests and authoring checks prevent missing, stale, or indistinguishable glyphs, with target-background review required for legibility",
       state: "verified",
+    },
+    {
+      sourceId: "S006",
+      label: "Asset authoring and target-size raster checks run in hosted verification",
+      state: "partial",
     },
   ],
   pinest: [
@@ -966,17 +1269,18 @@ const featuresByProject = {
     },
     {
       sourceId: "S002",
-      label: "Port architecture guidance is usable without the recomp stack",
+      label: "Port architecture guidance is usable without the dynarec stack",
       state: "verified",
     },
     {
       sourceId: "S003",
-      label: "Reverse-engineering skills are grouped independently of recomp methodology",
+      label:
+        "Reverse-engineering skills are grouped independently of runtime-execution methodology",
       state: "verified",
     },
     {
       sourceId: "S004",
-      label: "Static-recompiler-only skills are grouped under an explicit recomp scope",
+      label: "Dynamic guest-execution skills replace the removed generated-source methodology",
       state: "verified",
     },
     {
@@ -999,6 +1303,11 @@ const featuresByProject = {
       sourceId: "S008",
       label:
         "Global project guidance requires every maintained project and catalogue to expose a complete stateful intended-feature inventory",
+      state: "verified",
+    },
+    {
+      sourceId: "S009",
+      label: "Hosted CI exercises the portable repository on every applicable platform",
       state: "verified",
     },
   ],
