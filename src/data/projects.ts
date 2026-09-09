@@ -82,6 +82,7 @@ export const projects: Project[] = [
     features: featuresFor("benefactor"),
     languages: ["C", "Python", "CMake", "SDL", "GLSL", "Android"],
     github: "https://github.com/SomeoneIsWorking/benefactor",
+    liveUrl: "/benefactor/",
     featured: true,
     screenshots: [
       {
