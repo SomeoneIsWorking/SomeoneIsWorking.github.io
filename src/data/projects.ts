@@ -41,13 +41,13 @@ export const categories: CategoryDefinition[] = [
   {
     name: "Native game ports",
     short: "Ports",
-    description: "Rebuilt engines, static recompilation, and faithful host-native releases.",
+    description: "Runtime-native engines, dynamic translation, and faithful host-native releases.",
     accent: "#ff6b35",
   },
   {
     name: "Port infrastructure",
     short: "Infrastructure",
-    description: "Reusable runtimes, recompilers, assets, and verification machinery.",
+    description: "Reusable runtimes, engine layers, assets, and verification machinery.",
     accent: "#8ee3ef",
   },
   {
@@ -74,11 +74,11 @@ export const projects: Project[] = [
     name: "Benefactor",
     eyebrow: "Amiga engine port",
     category: "Native game ports",
-    status: "Playable",
+    status: "In development",
     summary:
-      "A native PC port of the 1994 Amiga game, combining a hand-written C engine with subsystem-by-subsystem M68K recompilation.",
+      "A native PC port of the 1994 Amiga game, combining a hand-written C engine with a maintained 68000 interpreter runtime.",
     narrative:
-      "A native renderer and host systems recover the game beyond its original 320-pixel window, while a differential PUAE harness keeps the moving-overlay recompiler grounded.",
+      "A native renderer and host systems recover the game beyond its original 320-pixel window, while a differential PUAE harness grounds the maintained runtime.",
     features: featuresFor("benefactor"),
     languages: ["C", "Python", "CMake", "SDL", "GLSL", "Android"],
     github: "https://github.com/SomeoneIsWorking/benefactor",
@@ -104,9 +104,9 @@ export const projects: Project[] = [
     category: "Native game ports",
     status: "In development",
     summary:
-      "A Super Mario Sunshine port whose default product is a PPC static recompilation with native overrides and Aurora rendering.",
+      "A Super Mario Sunshine port targeting runtime PPC dynamic translation with native overrides and Aurora rendering.",
     narrative:
-      "A separate native decomp runtime acts as a readable oracle. The shared PC-semantic renderer remains a partial preview and audit path rather than the default renderer.",
+      "The native decomp remains a readable oracle while the shared PC-semantic renderer and future runtime executor are developed as separate, testable owners.",
     features: featuresFor("sunbright"),
     languages: ["C++", "C", "Python", "SDL3", "WebGPU", "RmlUi"],
     github: "https://github.com/SomeoneIsWorking/sunbright",
@@ -115,7 +115,8 @@ export const projects: Project[] = [
       {
         src: "/projects/sunbright/delfino-gameplay.png",
         alt: "Delfino Plaza gameplay with Mario, FLUDD, residents, HUD, and dialogue",
-        caption: "Running static-recomp and Aurora product in Delfino Plaza.",
+        caption:
+          "Native rendering evidence from Delfino Plaza; the runtime JIT product is in development.",
       },
     ],
   },
@@ -147,27 +148,27 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "xmen2-recomp",
+    slug: "xmen2",
     name: "X-Men Legends II",
-    eyebrow: "Native PC static recompilation",
+    eyebrow: "Native PC runtime JIT",
     category: "Native game ports",
     status: "In development",
     summary:
-      "A Wine-free native port of the 2005 PC release built with x86-to-C recompilation and native subsystem replacements.",
+      "A Wine-free native port of the 2005 PC release using x86port runtime JIT translation and native subsystem replacements.",
     narrative:
       "The port has verified unattended menu-to-gameplay coverage, but representative physical-controller playability and complete renderer fidelity remain unverified. Android publication and performance gates are also open.",
-    features: featuresFor("xmen2-recomp"),
-    languages: ["C", "C++", "Python", "SDL3", "Vulkan", "RmlUi"],
-    github: "https://github.com/SomeoneIsWorking/xmen2-recomp",
+    features: featuresFor("xmen2"),
+    languages: ["C", "C++", "Python", "SDL3", "Vulkan", "RmlUi", "x86port JIT"],
+    github: "https://github.com/SomeoneIsWorking/xmen2",
     featured: true,
     screenshots: [
       {
-        src: "/projects/xmen2-recomp/main-menu.png",
+        src: "/projects/xmen2/main-menu.png",
         alt: "X-Men Legends II main menu rendered by the native port",
         caption: "Original main menu at 1280×720.",
       },
       {
-        src: "/projects/xmen2-recomp/controller-gameplay.png",
+        src: "/projects/xmen2/controller-gameplay.png",
         alt: "Reached gameplay with party HUD, map, and controller-sensitive prompts",
         caption: "Reached gameplay with native controller prompt art.",
       },
@@ -178,13 +179,12 @@ export const projects: Project[] = [
     name: "LF2 Port",
     eyebrow: "Little Fighter 2, native",
     category: "Native game ports",
-    status: "Playable",
-    summary:
-      "A verified playable Linux port of Little Fighter 2 v2.0a produced through static recompilation.",
+    status: "In development",
+    summary: "A native Linux port of Little Fighter 2 v2.0a using x86port runtime JIT translation.",
     narrative:
       "The macOS renderer needs a user re-test, physical controller hot-plug remains unverified, and the implemented Android path is not yet a qualified release.",
     features: featuresFor("lf2-port"),
-    languages: ["C", "C++", "Python", "SDL3", "RmlUi", "SDL GPU"],
+    languages: ["C", "C++", "Python", "SDL3", "RmlUi", "SDL GPU", "x86port JIT"],
     github: "https://github.com/SomeoneIsWorking/lf2-port",
     screenshots: [
       {
@@ -249,21 +249,22 @@ export const projects: Project[] = [
   {
     slug: "gears1",
     name: "GearsUE3",
-    eyebrow: "Xbox 360 static recompilation",
+    eyebrow: "Xbox 360 runtime JIT",
     category: "Native game ports",
     status: "In development",
     summary:
-      "A PC-native static-recompilation port of Xbox 360 Gears of War, with the first game as the live target.",
+      "A PC-native Xbox 360 runtime-JIT port of Gears of War, with the first game as the active target.",
     narrative:
-      "Gears 1 reaches Act 1 at about 30 completed frames per second, but world output is not yet faithful. Save writing works while loading remains unverified; networking and user/content services are absent.",
+      "Gears 1 is the active title, but no current gameplay executable is claimed until the Xenia-backed x360port runtime executor exists. Native RHI, audio, provisioning, and diagnostics are being prepared around that boundary.",
     features: featuresFor("gears1"),
-    languages: ["C++", "Python", "Vulkan", "SDL3", "XenonRecomp"],
+    languages: ["C++", "Python", "Vulkan", "SDL3", "x360port", "Xenia JIT"],
     github: "https://github.com/SomeoneIsWorking/gears1",
     screenshots: [
       {
         src: "/projects/gears1/act1-current.png",
         alt: "Act 1 world frame from the running Gears of War port with incomplete rendering",
-        caption: "Act 1 world output; rendering is not yet faithful.",
+        caption:
+          "Pre-migration frame retained as context; the current runtime-JIT product is not yet playable.",
       },
     ],
   },
@@ -274,27 +275,13 @@ export const projects: Project[] = [
     category: "Port infrastructure",
     status: "Framework",
     summary:
-      "A reusable static-recompilation and native-hybrid framework for turning PlayStation games into native PC ports.",
+      "A reusable dynarec-default native-hybrid framework for turning PlayStation games into native PC ports.",
     narrative:
       "psxport provides the CPU translation, native console services, renderer, extraction tools, and differential harness behind a growing family of ports.",
     features: featuresFor("psxport"),
     languages: ["C++", "C", "Python", "SDL3", "SDL GPU", "Vulkan"],
     github: "https://github.com/SomeoneIsWorking/psxport",
     featured: true,
-  },
-  {
-    slug: "recomp-x86",
-    name: "recomp-x86",
-    eyebrow: "x86-32 to C translator",
-    category: "Port infrastructure",
-    status: "Framework",
-    summary:
-      "A shared x86-32-to-C static recompiler with a Ghidra front end and fail-closed porting checks.",
-    narrative:
-      "The tool emits generated C and the boundaries around it—dispatch, exports, thunks, runtime override slots, stale-input detection, and impact-ranked gaps.",
-    features: featuresFor("recomp-x86"),
-    languages: ["Python", "Ghidra", "Jython", "Generated C", "PE"],
-    github: "https://github.com/SomeoneIsWorking/recomp-x86",
   },
   {
     slug: "lucent",
