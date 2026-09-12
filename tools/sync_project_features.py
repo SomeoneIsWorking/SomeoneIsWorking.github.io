@@ -94,14 +94,20 @@ def parse_comparison_baseline(path: Path) -> str:
     if not heading:
         inline = COMPARISON_BASELINE_INLINE.search(text)
         if inline:
-            return inline.group(1).strip()
+            return plain_baseline(inline.group(1))
         raise ValueError(f"{path}: required Comparison baseline section is missing")
     next_heading = SECOND_LEVEL_HEADING.search(text, heading.end())
     section_end = next_heading.start() if next_heading else len(text)
-    baseline = re.sub(r"\s+", " ", text[heading.end() : section_end]).strip()
+    first_paragraph = text[heading.end() : section_end].strip().split("\n\n", 1)[0]
+    baseline = plain_baseline(first_paragraph)
     if not baseline:
         raise ValueError(f"{path}: Comparison baseline section is empty")
     return baseline
+
+
+def plain_baseline(value: str) -> str:
+    text = re.sub(r"\[([^]]+)\]\([^)]+\)", r"\1", value)
+    return re.sub(r"\s+", " ", text.replace("*", "").replace("`", "")).strip()
 
 
 def typescript_string(value: str) -> str:
