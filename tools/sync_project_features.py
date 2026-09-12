@@ -31,6 +31,8 @@ PROJECT_PATHS = {
     "wails-cast": "wails-cast",
     "wails-cast-remote": "wails-cast-remote",
     "fedora-kde-steamdeck": "fedora-kde-steamdeck",
+    "prismlauncher": "PrismLauncher",
+    "minecraft-supermarket": "minecraft",
 }
 
 VALID_STATES = {"verified", "partial", "blocked", "missing"}

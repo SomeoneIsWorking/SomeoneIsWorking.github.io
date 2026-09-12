@@ -46,6 +46,10 @@ const comparisonBaselinesByProject = {
     "The baseline is returning to the Wails Cast desktop for every library, track-selection, subtitle, and transport action. WailsCast Remote intends the same authenticated workflow from Android and iOS, including discovery, pre-play choices, live controls, subtitle translation, and synchronized settings.",
   "fedora-kde-steamdeck":
     "The baseline is a stock Fedora KDE desktop session where Steam and Gamescope are launched and exited manually. This project intends a reversible SteamOS-like session choice that enters fullscreen Steam Gamepad UI, logs the run, returns cleanly to Plasma, and can be completely uninstalled.",
+  prismlauncher:
+    "The comparison baseline is upstream Prism Launcher at this fork's imported upstream checkpoint (3d01e09fc). S003-S006 add automatic local-network instance import, while S011 changes the selected-instance desktop shortcut workflow. The other state items describe retained upstream launcher capabilities whose current evidence is tracked independently. S012 and S013 add fork-specific maintenance and an optional native-package migration path. S014 tracks the fork's release packages across Linux and Apple Silicon macOS. S015 adds LAN updates for an existing instance in addition to creating a copy.",
+  "minecraft-supermarket":
+    "The previous milestone-customer-delivery-fixed Supermarket modpack release, which generated a smaller market settlement with checkout and delivery play but did not yet place the expanded city inside a surrounding sakura forest or provide the current full-height shelving and raised angled produce displays. Vanilla Minecraft supplies none of the supermarket gameplay.",
 } as const satisfies Record<string, string>;
 
 const featuresByProject = {
@@ -365,7 +369,7 @@ const featuresByProject = {
       sourceId: "S006",
       label:
         "An embedded Azahar oracle and parity tooling can compare the port with independent 3DS execution",
-      state: "verified",
+      state: "partial",
     },
     {
       sourceId: "S007",
@@ -1572,6 +1576,195 @@ const featuresByProject = {
       label:
         "Installation and removal are documented, validated, and tested without leaving user files behind",
       state: "missing",
+    },
+  ],
+  prismlauncher: [
+    {
+      sourceId: "S001",
+      label: "The launcher manages and launches Minecraft instances",
+      state: "verified",
+    },
+    {
+      sourceId: "S002",
+      label: "Instances can use the established archive import and export paths",
+      state: "verified",
+    },
+    {
+      sourceId: "S003",
+      label: "Every running launcher automatically advertises its instance catalogue on the LAN",
+      state: "verified",
+    },
+    {
+      sourceId: "S004",
+      label:
+        "A recipient can discover and import an available instance from the New Instance window",
+      state: "verified",
+    },
+    {
+      sourceId: "S005",
+      label:
+        "LAN transfer uses a bounded capability and preserves the existing importer as archive authority",
+      state: "verified",
+    },
+    {
+      sourceId: "S006",
+      label: "LAN import has focused positive and negative verification",
+      state: "verified",
+    },
+    {
+      sourceId: "S007",
+      label: "Players can select, configure, and manage compatible Java runtimes",
+      state: "verified",
+    },
+    {
+      sourceId: "S008",
+      label: "Players can authenticate or use the launcher-supported account workflows",
+      state: "partial",
+    },
+    {
+      sourceId: "S009",
+      label: "Players can browse and install supported mod-platform content",
+      state: "partial",
+    },
+    {
+      sourceId: "S010",
+      label: "Players can configure launcher presentation, logging, and updates",
+      state: "partial",
+    },
+    {
+      sourceId: "S011",
+      label: "A selected instance can create a desktop shortcut using its instance name",
+      state: "verified",
+    },
+    {
+      sourceId: "S012",
+      label: "The fork's installed Flatpak checks and installs stable fork releases automatically",
+      state: "partial",
+    },
+    {
+      sourceId: "S013",
+      label: "Flatpak launcher data can be copied into a native installation",
+      state: "partial",
+    },
+    {
+      sourceId: "S014",
+      label: "Fork releases provide a Linux AppImage, Flatpak, and native macOS arm64 app",
+      state: "verified",
+    },
+    {
+      sourceId: "S015",
+      label:
+        "A recipient can update an existing stopped local instance from a LAN instance while preserving local player data",
+      state: "verified",
+    },
+  ],
+  "minecraft-supermarket": [
+    {
+      sourceId: "S001",
+      label: "A supermarket town is placed by Minecraft world generation",
+      state: "verified",
+    },
+    {
+      sourceId: "S002",
+      label: "A player joining for the first time is placed at the generated shop door",
+      state: "verified",
+    },
+    {
+      sourceId: "S003",
+      label: "New-world creation defaults to Survival on Easy difficulty",
+      state: "verified",
+    },
+    {
+      sourceId: "S004",
+      label: "Hostile mobs are excluded from the city while equivalent threats remain outside it",
+      state: "verified",
+    },
+    {
+      sourceId: "S005",
+      label:
+        "The generated town contains an expanded city plus an internal sakura grove and surrounding sakura forest",
+      state: "verified",
+    },
+    {
+      sourceId: "S006",
+      label: "The generated supermarket maintains a live customer population",
+      state: "verified",
+    },
+    {
+      sourceId: "S007",
+      label:
+        "Customers shop, approach and wait at the till, complete checkout after CHARGE, and leave",
+      state: "verified",
+    },
+    {
+      sourceId: "S008",
+      label: "The supermarket exposes stocked retail inventory, including soda products",
+      state: "verified",
+    },
+    {
+      sourceId: "S009",
+      label: "The generated supermarket has stocked ice-cream stands",
+      state: "verified",
+    },
+    {
+      sourceId: "S010",
+      label: "The order computer starts a truck delivery that unloads goods and consumes the order",
+      state: "verified",
+    },
+    {
+      sourceId: "S011",
+      label: "A portable, current Supermarket pack zip is available",
+      state: "verified",
+    },
+    {
+      sourceId: "S012",
+      label: "Pack assembly is reproducible from declared portable inputs",
+      state: "verified",
+    },
+    {
+      sourceId: "S013",
+      label: "Every verified milestone publishes a current pack through GitHub CI/CD",
+      state: "verified",
+    },
+    {
+      sourceId: "S014",
+      label: "The modpack has a custom SVG visual identity used by its distribution",
+      state: "verified",
+    },
+    {
+      sourceId: "S015",
+      label: "The normal verifier and project registries protect all goal-level behaviors",
+      state: "verified",
+    },
+    {
+      sourceId: "S016",
+      label: "The complete Supermarket experience is operable with a standard game controller",
+      state: "verified",
+    },
+    {
+      sourceId: "S017",
+      label: "The project has a version-controlled `main` branch and GitHub release substrate",
+      state: "verified",
+    },
+    {
+      sourceId: "S018",
+      label: "A connected southern business district expands the generated city",
+      state: "partial",
+    },
+    {
+      sourceId: "S019",
+      label: "The pack offers obtainable, usable cars and bicycles",
+      state: "partial",
+    },
+    {
+      sourceId: "S020",
+      label: "City businesses have furnished, stocked interiors including real coffee",
+      state: "partial",
+    },
+    {
+      sourceId: "S021",
+      label: "The supermarket has full-height stocked shelves and raised angled produce bins",
+      state: "verified",
     },
   ],
 } as const satisfies Record<string, readonly ProjectFeature[]>;
