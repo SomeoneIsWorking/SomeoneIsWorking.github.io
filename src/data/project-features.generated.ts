@@ -568,7 +568,7 @@ const featuresByProject = {
     },
     {
       sourceId: "S014",
-      label: "Network play from the original game is available natively",
+      label: "Custom LAN multiplayer supports remote player inputs",
       state: "missing",
     },
     {
@@ -608,6 +608,17 @@ const featuresByProject = {
       sourceId: "S021",
       label: "Browser WebAssembly runs the same native/JIT game with persistent imported files",
       state: "partial",
+    },
+    {
+      sourceId: "S022",
+      label:
+        "Internet multiplayer discovers sessions through Firebase and carries gameplay peer-to-peer",
+      state: "missing",
+    },
+    {
+      sourceId: "S023",
+      label: "Rollback netplay restores and resimulates exact game state",
+      state: "missing",
     },
   ],
   "tomba2-engine": [

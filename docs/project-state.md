@@ -2,7 +2,7 @@
 
 ## Current focus
 
-None. The intended-feature state presentation and source synchronization are verified.
+Centralize existing WebAssembly deployments and release-info updates under this repository.
 
 ## Capability inventory
 
@@ -12,6 +12,7 @@ None. The intended-feature state presentation and source synchronization are ver
 | S002 | Every project detail lists granular intended capabilities with verified, partial, blocked, or missing state and names its comparison baseline | verified | S001 | G001 |
 | S003 | Portfolio facts are traceable to each project's canonical goals and state documents | verified | S002 | G001 |
 | S004 | Responsive project pages expose source links, technology context, and representative media | verified | S001 | G001 |
+| S005 | WebAssembly releases and their project details are published through this single Pages site | partial | The X-Men 2 and LF2 bundles are imported locally; the central deployment and retirement of their source-repository Pages jobs remain to verify. Benefactor's in-flight release still has a direct deploy job. | G002 |
 
 ## Capability details
 
@@ -29,7 +30,7 @@ places it above the list so user-visible differences are understandable without 
 
 ### S003 — Project-source traceability
 
-Evidence: `tools/sync_project_features.py` reads all 20 mapped `docs/project-state.md` authorities,
+Evidence: `tools/sync_project_features.py` reads every mapped `docs/project-state.md` authority,
 refuses missing or malformed inventories and missing or empty comparison-baseline sections,
 generates the committed TypeScript snapshot, and reports the project/feature denominator in
 `--check` mode so a stale or empty result cannot look current.
@@ -38,3 +39,11 @@ generates the committed TypeScript snapshot, and reports the project/feature den
 
 Evidence: detail routes expose source/live actions, technology lists, responsive screenshots, captions,
 metadata, and related-project navigation.
+
+### S005 — Central WebAssembly releases
+
+Evidence: `tools/import_wasm_release.py` validates and replaces complete asset-free routes, records the
+source CI provenance in each route's `publication.json`, and has accepted the latest successful X-Men 2
+and LF2 browser artifacts. The site build includes both bundles; the hosted routes and source workflow
+migration still need verification. Benefactor's existing route is hosted here, but its active source
+release workflow still has a separate Pages job.
