@@ -479,6 +479,63 @@ export const projects: Project[] = [
     github: "https://github.com/SomeoneIsWorking/wails-cast-remote",
   },
   {
+    slug: "prismlauncher",
+    name: "Prism Launcher",
+    eyebrow: "Minecraft launcher fork",
+    category: "Desktop & Linux",
+    status: "Application",
+    summary:
+      "A Prism Launcher fork that discovers Minecraft instances on the local network and imports or updates them directly.",
+    narrative:
+      "LAN sharing works between running launchers without a sender-side share action. Updating an existing pack replaces its mods and pack configuration while retaining local worlds and player settings. The fork's Flatpak uses Prism's own update prompt for its releases; an optional migration tool copies Flatpak data to a native installation.",
+    features: featuresFor("prismlauncher"),
+    languages: ["C++20", "Qt 6", "CMake", "Python", "Flatpak"],
+    github: "https://github.com/SomeoneIsWorking/PrismLauncher",
+    release: {
+      label: "12.0.9",
+      platforms: "Linux AppImage · Flatpak · macOS arm64",
+      url: "https://github.com/SomeoneIsWorking/PrismLauncher/releases/tag/12.0.9",
+    },
+    screenshots: [
+      {
+        src: "/projects/prismlauncher/lan-update.png",
+        alt: "Prism Launcher LAN page showing a discovered remote pack and an existing local instance ready to update",
+        caption: "Import a new LAN copy or update a selected local pack.",
+      },
+    ],
+  },
+  {
+    slug: "minecraft-supermarket",
+    name: "Minecraft Supermarket",
+    eyebrow: "Sakura city modpack",
+    category: "Desktop & Linux",
+    status: "Playable",
+    summary:
+      "A Minecraft supermarket town set inside a sakura forest, with stocked shelves, raised produce displays, shoppers, checkout, and deliveries.",
+    narrative:
+      "A fresh world generates the city and places the player at the supermarket. The store has full-height stocked shelves and angled produce bins, while customers shop and queue at the register and orders arrive by truck. A connected southern district, cars, bicycles, and furnished businesses are included but still need full client qualification.",
+    features: featuresFor("minecraft-supermarket"),
+    languages: ["Java", "Python", "Minecraft", "Fabric"],
+    github: "https://github.com/SomeoneIsWorking/minecraft-supermarket",
+    release: {
+      label: "Sakura city and market milestone",
+      platforms: "Minecraft modpack ZIP",
+      url: "https://github.com/SomeoneIsWorking/minecraft-supermarket/releases/tag/milestone-sakura-city-market",
+    },
+    screenshots: [
+      {
+        src: "/projects/minecraft-supermarket/sakura-forest.png",
+        alt: "Supermarket city surrounded by a sakura forest in Minecraft",
+        caption: "The city sits within a surrounding sakura forest.",
+      },
+      {
+        src: "/projects/minecraft-supermarket/produce-bins.png",
+        alt: "Raised angled produce bins stocked with fruit inside the supermarket",
+        caption: "Stocked shelves and raised angled produce displays inside the store.",
+      },
+    ],
+  },
+  {
     slug: "fedora-kde-steamdeck",
     name: "Fedora KDE Steam Deck",
     eyebrow: "Linux handheld integration",
