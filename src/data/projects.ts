@@ -203,9 +203,9 @@ export const projects: Project[] = [
     languages: ["C", "C++", "Python", "SDL3", "RmlUi", "SDL GPU", "x86port JIT"],
     github: "https://github.com/SomeoneIsWorking/lf2-port",
     release: {
-      label: "v0.1.9 pre-release",
-      platforms: "Linux · Android",
-      url: "https://github.com/SomeoneIsWorking/lf2-port/releases/tag/v0.1.9",
+      label: "v0.1.10 pre-release",
+      platforms: "Linux · macOS · Android",
+      url: "https://github.com/SomeoneIsWorking/lf2-port/releases/tag/v0.1.10",
     },
     liveUrl: "/lf2-port/",
     screenshots: [
