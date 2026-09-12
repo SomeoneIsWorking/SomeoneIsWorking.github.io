@@ -518,9 +518,9 @@ export const projects: Project[] = [
     languages: ["Java", "Python", "Minecraft", "Fabric"],
     github: "https://github.com/SomeoneIsWorking/minecraft-supermarket",
     release: {
-      label: "Sakura city and market milestone",
+      label: "Business polish milestone",
       platforms: "Minecraft modpack ZIP",
-      url: "https://github.com/SomeoneIsWorking/minecraft-supermarket/releases/tag/milestone-sakura-city-market",
+      url: "https://github.com/SomeoneIsWorking/minecraft-supermarket/releases/tag/milestone-business-polish",
     },
     screenshots: [
       {

@@ -881,7 +881,7 @@ const featuresByProject = {
     {
       sourceId: "S008",
       label: "Bounded runtime interpreter fallback",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S009",
