@@ -444,6 +444,11 @@ export const projects: Project[] = [
     features: featuresFor("wails-dbman"),
     languages: ["Go", "Wails", "Vue 3", "TypeScript", "Monaco", "Pinia"],
     github: "https://github.com/SomeoneIsWorking/wails-dbman",
+    release: {
+      label: "v1.0.0 preview",
+      platforms: "Windows · macOS · Linux",
+      url: "https://github.com/SomeoneIsWorking/wails-dbman/releases/tag/v1.0.0",
+    },
   },
   {
     slug: "wails-cast",
