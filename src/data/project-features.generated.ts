@@ -219,6 +219,11 @@ const featuresByProject = {
       label: "Desktop and browser first-run setup browse for and validate the three player disks",
       state: "partial",
     },
+    {
+      sourceId: "S032",
+      label: "A qualified version tag publishes one GitHub Release with all four native packages",
+      state: "partial",
+    },
   ],
   sunbright: [
     {
@@ -1371,6 +1376,11 @@ const featuresByProject = {
     {
       sourceId: "S011",
       label: "Global object search is keyboard-navigable across the connected server",
+      state: "partial",
+    },
+    {
+      sourceId: "S012",
+      label: "Desktop releases provide verified Windows, macOS, and Linux packages",
       state: "partial",
     },
   ],
