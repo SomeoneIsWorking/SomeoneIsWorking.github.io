@@ -9,8 +9,8 @@ export interface WasmPublication {
 const publications: Record<string, WasmPublication> = {
   benefactor: {
     sourceRepository: "SomeoneIsWorking/benefactor",
-    sourceCommit: "dbcfdd78dd490b65418d7f6f0f4f39c09051c2d5",
-    sourceRunId: 34700630248,
+    sourceCommit: "85283aa5d157e8d4cc99a7616313c5779a777320",
+    sourceRunId: 34704766306,
   },
   "lf2-port": {
     sourceRepository: "SomeoneIsWorking/lf2-port",
