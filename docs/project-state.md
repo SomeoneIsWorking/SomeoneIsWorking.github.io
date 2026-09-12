@@ -2,7 +2,7 @@
 
 ## Current focus
 
-Centralize existing WebAssembly deployments and release-info updates under this repository.
+None. Central WebAssembly releases and project details are maintained as releases occur.
 
 ## Capability inventory
 
@@ -12,7 +12,7 @@ Centralize existing WebAssembly deployments and release-info updates under this 
 | S002 | Every project detail lists granular intended capabilities with verified, partial, blocked, or missing state and names its comparison baseline | verified | S001 | G001 |
 | S003 | Portfolio facts are traceable to each project's canonical goals and state documents | verified | S002 | G001 |
 | S004 | Responsive project pages expose source links, technology context, and representative media | verified | S001 | G001 |
-| S005 | WebAssembly releases and their project details are published through this single Pages site | partial | X-Men 2 and LF2 resolve to this site's verified routes after their source Pages sites were disabled. Benefactor's current WASM package is imported here, but its direct source deployment still needs retirement. | G002 |
+| S005 | WebAssembly releases and their project details are published through this single Pages site | verified | X-Men 2, LF2, and Benefactor resolve to this site's browser routes and publication records. Their source project Pages sites and direct deploy jobs are retired. | G002 |
 
 ## Capability details
 
@@ -43,7 +43,9 @@ metadata, and related-project navigation.
 ### S005 — Central WebAssembly releases
 
 Evidence: `tools/import_wasm_release.py` validates and replaces complete asset-free routes and records
-source CI provenance in each route's `publication.json`. The site deployed the X-Men 2 and LF2 bundles
-from run `34689838606`; both live routes returned this site's publication record after their separate
-project Pages sites were disabled. Benefactor's current run `34689816660` produced an asset-free browser
-package that is imported here; its central deployment and direct-job retirement remain to verify.
+source CI provenance in each route's `publication.json`. Central Pages runs `34689838606` and
+`34690005639` deployed X-Men 2, LF2, and Benefactor packages from source runs `34688683213`,
+`34686595646`, and `34689816660`, respectively. Each live route returned this site's publication
+record after its source project Pages site was disabled. The source workflows now publish CI artifacts
+without direct Pages deployment. WebLua loaded all three central browser setup routes without console
+errors or failed requests; this does not establish real-game browser playability.
