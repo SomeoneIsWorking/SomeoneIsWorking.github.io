@@ -750,7 +750,7 @@ const featuresByProject = {
       sourceId: "S003",
       label:
         "The gameplay product executes every non-native guest path through psxport's pinned Lightrec dynarec with bounded, reason-accounted fallback",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S004",

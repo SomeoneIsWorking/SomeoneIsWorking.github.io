@@ -10,6 +10,11 @@ import shutil
 import tarfile
 from pathlib import Path, PurePosixPath
 
+if __package__:
+    from .sync_wasm_publications import output_path, render as render_publications
+else:
+    from sync_wasm_publications import output_path, render as render_publications
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_FILES = 512
@@ -124,15 +129,20 @@ def import_release(
     if any(source == path or source.is_relative_to(path) for path in (public, stage, previous)):
         raise ValueError("artifact source overlaps the destination or staging path")
     entries = inspect_artifact(source)
+    publication = {
+        "publisher": "pages",
+        "sourceRepository": source_repo,
+        "sourceCommit": source_sha,
+        "sourceRunId": run_id,
+    }
+    summary = render_publications(root, (slug, publication))
     populate_stage(source, stage, entries)
     (stage / "publication.json").write_text(
-        json.dumps(
-            {"publisher": "pages", "sourceRepository": source_repo, "sourceCommit": source_sha, "sourceRunId": run_id},
-            indent=2,
-        )
-        + "\n",
+        json.dumps(publication, indent=2) + "\n",
         encoding="utf-8",
     )
+    summary_stage = work / "wasm-publications.generated.ts"
+    summary_stage.write_text(summary, encoding="utf-8")
     if previous.exists():
         shutil.rmtree(previous)
     previous.parent.mkdir(parents=True, exist_ok=True)
@@ -140,7 +150,12 @@ def import_release(
         public.rename(previous)
     try:
         stage.rename(public)
+        summary_target = output_path(root)
+        summary_target.parent.mkdir(parents=True, exist_ok=True)
+        summary_stage.replace(summary_target)
     except OSError:
+        if public.exists():
+            shutil.rmtree(public)
         if previous.exists():
             previous.rename(public)
         raise

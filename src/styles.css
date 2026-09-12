@@ -689,11 +689,30 @@ a {
   border: 0;
 }
 
-.detail-intro > p:last-child {
+.detail-intro > p:nth-child(2) {
   margin: 0;
   color: #c6c7ca;
   font-size: clamp(18px, 2vw, 25px);
   line-height: 1.65;
+}
+
+.release-publication {
+  display: grid;
+  gap: 8px;
+  margin-top: 30px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.release-publication a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  color: var(--ink);
 }
 
 .feature-panel ol,

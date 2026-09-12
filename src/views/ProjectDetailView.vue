@@ -9,6 +9,7 @@ import {
   type ProjectFeatureState,
   type ProjectSlug,
 } from "../data/project-features.generated";
+import { wasmPublicationFor } from "../data/wasm-publications.generated";
 
 const route = useRoute();
 const project = computed(() => findProject(String(route.params.slug)));
@@ -27,6 +28,9 @@ const related = computed(() =>
 );
 const comparisonBaseline = computed(() =>
   project.value ? comparisonBaselineFor(project.value.slug as ProjectSlug) : undefined,
+);
+const browserPublication = computed(() =>
+  project.value ? wasmPublicationFor(project.value.slug) : undefined,
 );
 
 const featureStateLabels: Record<ProjectFeatureState, string> = {
@@ -74,6 +78,23 @@ const featureStateLabels: Record<ProjectFeatureState, string> = {
       <div class="detail-intro">
         <p class="section-index">01 / The project</p>
         <p>{{ project.narrative }}</p>
+        <div v-if="project.release" class="release-publication">
+          <span>Latest GitHub Release · {{ project.release.platforms }}</span>
+          <a :href="project.release.url" target="_blank" rel="noreferrer"
+            >{{ project.release.label }}
+            <ArrowUpRight :size="14" aria-hidden="true" />
+          </a>
+        </div>
+        <div v-if="browserPublication" class="release-publication">
+          <span>Latest browser package</span>
+          <a
+            :href="`https://github.com/${browserPublication.sourceRepository}/actions/runs/${browserPublication.sourceRunId}`"
+            target="_blank"
+            rel="noreferrer"
+            >{{ browserPublication.sourceCommit.slice(0, 12) }}
+            <ArrowUpRight :size="14" aria-hidden="true" />
+          </a>
+        </div>
       </div>
       <div class="feature-panel">
         <div class="feature-panel-heading">
