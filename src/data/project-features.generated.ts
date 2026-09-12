@@ -81,7 +81,7 @@ const featuresByProject = {
     {
       sourceId: "S006",
       label:
-        "PUAE differential scenarios and interactive controls are preserved as an independent oracle for the shipping interpreter",
+        "The working static recomp provides independent behavioral comparison for the shipping interpreter",
       state: "partial",
     },
     {
