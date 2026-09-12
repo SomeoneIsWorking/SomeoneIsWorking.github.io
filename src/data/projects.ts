@@ -78,7 +78,7 @@ export const projects: Project[] = [
     summary:
       "A native PC port of the 1994 Amiga game, combining a hand-written C engine with a maintained 68000 interpreter runtime.",
     narrative:
-      "A native renderer and host systems recover the game beyond its original 320-pixel window, while a differential PUAE harness grounds the maintained runtime.",
+      "A native renderer and host systems recover the game beyond its original 320-pixel window. The browser package now accepts the player's own disks through first-run setup; browser gameplay remains unqualified.",
     features: featuresFor("benefactor"),
     languages: ["C", "Python", "CMake", "SDL", "GLSL", "Android"],
     github: "https://github.com/SomeoneIsWorking/benefactor",
