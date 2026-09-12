@@ -19,6 +19,11 @@ export interface Project {
   features: readonly ProjectFeature[];
   languages: string[];
   github: string;
+  release?: {
+    label: string;
+    platforms: string;
+    url: string;
+  };
   liveUrl?: string;
   featured?: boolean;
   screenshots?: ProjectScreenshot[];
@@ -82,6 +87,11 @@ export const projects: Project[] = [
     features: featuresFor("benefactor"),
     languages: ["C", "Python", "CMake", "SDL", "GLSL", "Android"],
     github: "https://github.com/SomeoneIsWorking/benefactor",
+    release: {
+      label: "v0.1.0",
+      platforms: "Linux · Android",
+      url: "https://github.com/SomeoneIsWorking/benefactor/releases/tag/v0.1.0",
+    },
     liveUrl: "/benefactor/",
     featured: true,
     screenshots: [
@@ -160,6 +170,11 @@ export const projects: Project[] = [
     features: featuresFor("xmen2"),
     languages: ["C", "C++", "Python", "SDL3", "Vulkan", "RmlUi", "x86port JIT"],
     github: "https://github.com/SomeoneIsWorking/xmen2",
+    release: {
+      label: "v0.2.5",
+      platforms: "Linux · macOS · Android",
+      url: "https://github.com/SomeoneIsWorking/xmen2/releases/tag/v0.2.5",
+    },
     liveUrl: "/xmen2/",
     featured: true,
     screenshots: [
@@ -187,6 +202,11 @@ export const projects: Project[] = [
     features: featuresFor("lf2-port"),
     languages: ["C", "C++", "Python", "SDL3", "RmlUi", "SDL GPU", "x86port JIT"],
     github: "https://github.com/SomeoneIsWorking/lf2-port",
+    release: {
+      label: "v0.1.9 pre-release",
+      platforms: "Linux · Android",
+      url: "https://github.com/SomeoneIsWorking/lf2-port/releases/tag/v0.1.9",
+    },
     liveUrl: "/lf2-port/",
     screenshots: [
       {
@@ -363,6 +383,11 @@ export const projects: Project[] = [
     features: featuresFor("pinest"),
     languages: ["TypeScript", "Node.js", "Flutter", "Dart", "WebSockets", "Firebase"],
     github: "https://github.com/SomeoneIsWorking/pinest",
+    release: {
+      label: "Android v0.1.2",
+      platforms: "Android",
+      url: "https://github.com/SomeoneIsWorking/pinest/releases/tag/apk-43b3b81daf7d6b6b83313738bab1c3ef62dce292",
+    },
     liveUrl: "https://pinest.web.app",
     featured: true,
     screenshots: [

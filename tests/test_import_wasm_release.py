@@ -5,8 +5,10 @@ import tarfile
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.import_wasm_release import import_release
+from tools.sync_wasm_publications import render
 
 SOURCE_REPO = "SomeoneIsWorking/example"
 SOURCE_SHA = "a" * 40
@@ -47,6 +49,7 @@ class ImportWasmReleaseTest(unittest.TestCase):
         self.assertTrue((previous / ".nojekyll").is_file())
         self.assertFalse((previous / "stale.js").exists())
         self.assertIn(SOURCE_SHA, (previous / "publication.json").read_text())
+        self.assertIn(SOURCE_SHA, (self.root / "src" / "data" / "wasm-publications.generated.ts").read_text())
 
     def test_rejects_traversal_before_replacing_current_route(self) -> None:
         current = self.root / "public" / "example"
@@ -81,6 +84,40 @@ class ImportWasmReleaseTest(unittest.TestCase):
 
         self.assertEqual(import_release(artifact, "example", SOURCE_REPO, SOURCE_SHA, RUN_ID, self.root), 2)
         self.assertEqual((self.root / "public" / "example" / "app.wasm").read_bytes(), b"\0asm")
+
+    def test_reimport_updates_detail_page_source_build(self) -> None:
+        artifact = self.make_tar("release.tar", {"index.html": b"<html></html>", "app.wasm": b"\0asm"})
+        import_release(artifact, "example", SOURCE_REPO, SOURCE_SHA, RUN_ID, self.root)
+        newer_sha = "b" * 40
+        import_release(artifact, "example", SOURCE_REPO, newer_sha, RUN_ID + 1, self.root)
+
+        summary = (self.root / "src" / "data" / "wasm-publications.generated.ts").read_text()
+        self.assertIn(newer_sha, summary)
+        self.assertNotIn(SOURCE_SHA, summary)
+        self.assertEqual(summary, render(self.root))
+
+    def test_bad_publication_elsewhere_refuses_import(self) -> None:
+        existing = self.root / "public" / "other"
+        existing.mkdir()
+        (existing / "publication.json").write_text('{"publisher":"other"}')
+        artifact = self.make_tar("release.tar", {"index.html": b"<html></html>", "app.wasm": b"\0asm"})
+
+        with self.assertRaisesRegex(ValueError, "invalid publication fields"):
+            import_release(artifact, "example", SOURCE_REPO, SOURCE_SHA, RUN_ID, self.root)
+        self.assertFalse((self.root / "public" / "example").exists())
+
+    def test_summary_write_failure_restores_previous_route(self) -> None:
+        old_artifact = self.make_tar("old.tar", {"index.html": b"old", "app.wasm": b"\0asm-old"})
+        import_release(old_artifact, "example", SOURCE_REPO, SOURCE_SHA, RUN_ID, self.root)
+        new_artifact = self.make_tar("new.tar", {"index.html": b"new", "app.wasm": b"\0asm-new"})
+
+        with patch("tools.import_wasm_release.output_path", return_value=self.root / "public"):
+            with self.assertRaises(OSError):
+                import_release(new_artifact, "example", SOURCE_REPO, "b" * 40, RUN_ID + 1, self.root)
+
+        route = self.root / "public" / "example"
+        self.assertEqual((route / "app.wasm").read_bytes(), b"\0asm-old")
+        self.assertIn(SOURCE_SHA, (route / "publication.json").read_text())
 
 
 if __name__ == "__main__":

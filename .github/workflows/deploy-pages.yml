@@ -29,6 +29,8 @@ jobs:
         run: npm ci
       - name: Check browser artifact importer
         run: python3 -m unittest discover -s tests
+      - name: Check browser release summary
+        run: python3 tools/sync_wasm_publications.py --check
       - name: Build site
         run: npm run build
       - name: Configure Pages
