@@ -14,6 +14,9 @@ index.html
             ├─ src/data/projects.ts (project facts and category definitions)
             └─ src/data/project-features.generated.ts (stateful intended-feature snapshot)
 tools/sync_project_features.py (project-state snapshot generator and stale check)
+tools/import_wasm_release.py (reviewed browser artifact import into public/<slug>/)
+public/<slug>/ (asset-free WebAssembly site copied into the deployment bundle)
+.github/workflows/deploy-pages.yml (single GitHub Pages publisher)
 ```
 
 ## Ownership
@@ -27,6 +30,7 @@ tools/sync_project_features.py (project-state snapshot generator and stale check
 | Project summaries | Reusable cards for featured, directory, and related-project lists | `src/components/ProjectCard.vue` | `ProjectCard.vue` | — |
 | Portfolio content | Categories, project facts, links, and featured status | `src/data/projects.ts` | `projects` | — |
 | Intended feature state | Parse canonical sibling project-state registries, including comparison baselines, into the committed portable snapshot used by detail pages | `tools/sync_project_features.py`, `src/data/project-features.generated.ts` | `featuresFor`, `comparisonBaselineFor` | `docs/project-state.md` |
+| WebAssembly publication | Replace each reviewed asset-free title bundle at its public route and publish all routes through the site's one Pages workflow | `tools/import_wasm_release.py`, `public/<slug>/`, `.github/workflows/deploy-pages.yml` | `import_wasm_release.py` | `AGENTS.md` |
 | Visual system | Theme tokens, responsive layouts, motion, and component styling | `src/styles.css` | `src/main.ts` | — |
 | Social identity | Favicon, social card, and root-page metadata | `public/`, `index.html` | `index.html` | — |
 
@@ -36,6 +40,7 @@ tools/sync_project_features.py (project-state snapshot generator and stale check
 | --- | --- |
 | Add or correct a showcased project | `src/data/projects.ts` |
 | Add or correct intended feature state | The showcased project's `docs/project-state.md`, then `tools/sync_project_features.py` |
+| Publish a WebAssembly package | Source project's verified CI artifact, then `tools/import_wasm_release.py` and `public/<slug>/` |
 | Change card presentation | `src/components/ProjectCard.vue` |
 | Change root-page discovery or filters | `src/views/HomeView.vue` |
 | Change an individual project page | `src/views/ProjectDetailView.vue` |

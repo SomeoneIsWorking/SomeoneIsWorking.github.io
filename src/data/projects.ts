@@ -160,6 +160,7 @@ export const projects: Project[] = [
     features: featuresFor("xmen2"),
     languages: ["C", "C++", "Python", "SDL3", "Vulkan", "RmlUi", "x86port JIT"],
     github: "https://github.com/SomeoneIsWorking/xmen2",
+    liveUrl: "/xmen2/",
     featured: true,
     screenshots: [
       {
@@ -186,6 +187,7 @@ export const projects: Project[] = [
     features: featuresFor("lf2-port"),
     languages: ["C", "C++", "Python", "SDL3", "RmlUi", "SDL GPU", "x86port JIT"],
     github: "https://github.com/SomeoneIsWorking/lf2-port",
+    liveUrl: "/lf2-port/",
     screenshots: [
       {
         src: "/projects/lf2-port/stage-mode-ultrawide.png",
