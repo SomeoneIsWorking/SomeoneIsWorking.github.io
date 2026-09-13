@@ -3,11 +3,32 @@ import {FileStager, persistentStorage} from "./storage.mjs";
 
 const archive = document.querySelector("#archive");
 const play = document.querySelector("#play");
+const testPlay = document.querySelector("#test-play");
 const progress = document.querySelector("#progress");
 const status = document.querySelector("#status");
 const reload = document.querySelector("#reload");
 const canvas = document.querySelector("#canvas");
 let launched = false;
+let storageRoot;
+
+async function removeIfPresent(root, name, recursive = false) {
+  try {
+    await root.removeEntry(name, {recursive});
+  } catch (error) {
+    if (error.name !== "NotFoundError") throw error;
+  }
+}
+
+function formatBytes(bytes) {
+  const units = ["B", "KB", "MB", "GB"];
+  let value = bytes;
+  let unit = 0;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
+    unit += 1;
+  }
+  return `${unit > 0 && value < 10 ? value.toFixed(2) : Math.round(value)} ${units[unit]}`;
+}
 
 function report(message, failed = false) {
   status.textContent = message;
@@ -18,15 +39,26 @@ function report(message, failed = false) {
   }
 }
 
-function launch(importing) {
+function launch(importing, gameplayTest = false) {
   if (launched) throw new Error("The game has already started in this page.");
   launched = true;
-  archive.disabled = play.disabled = true;
-  progress.hidden = true;
+  archive.disabled = play.disabled = testPlay.disabled = true;
+  progress.hidden = !importing;
+  if (importing) {
+    progress.max = 100;
+    progress.value = 0;
+  }
   globalThis.Module = {
     canvas,
-    arguments: importing ? ["--import"] : [],
+    arguments: importing ? ["--import"] : gameplayTest ? ["--test-deadzone"] : [],
     onSetupStatus: report,
+    onUnpackProgress(percent, done, total) {
+      progress.max = 100;
+      progress.value = percent;
+      report(total > 0
+        ? `Checking and unpacking your game files… ${percent}% (${formatBytes(done)} of ${formatBytes(total)})`
+        : `Checking and unpacking your game files… ${percent}%`);
+    },
     onGameReady() {
       document.body.classList.add("playing");
       canvas.focus();
@@ -46,10 +78,11 @@ function launch(importing) {
 
 reload.addEventListener("click", () => location.reload());
 play.addEventListener("click", () => launch(false));
+testPlay.addEventListener("click", () => launch(false, true));
 archive.addEventListener("change", async () => {
   const file = archive.files[0];
   if (!file) return;
-  archive.disabled = play.disabled = true;
+  archive.disabled = play.disabled = testPlay.disabled = true;
   progress.hidden = false;
   try {
     report("Copying your ZIP into private browser storage…");
@@ -57,17 +90,39 @@ archive.addEventListener("change", async () => {
       directory: "incoming", name: "input.zip", maxBytes: file.size,
       progress({bytes, total}) { progress.max = total; progress.value = bytes; }
     });
+    report("Preparing the new installation…");
+    // The previous bar measured copied bytes; deleting the old install is real
+    // work with no known duration, so show it as indeterminate rather than
+    // leaving a stale 100% claim on screen.
+    progress.removeAttribute("value");
+    await removeIfPresent(storageRoot, "install.ready");
+    await removeIfPresent(storageRoot, "install.ready.tmp");
+    await removeIfPresent(storageRoot, "install", true);
     launch(true);
   } catch (error) {
     report(error.message, true);
   }
 });
 
+/* The capability gate is the only thing a player on an unsupported browser ever
+ * sees, so it must name the capability that is actually missing. */
+function missingBrowserFeatures() {
+  const missing = [];
+  if (!navigator.gpu) missing.push("WebGPU");
+  if (!globalThis.OffscreenCanvas) missing.push("OffscreenCanvas");
+  return missing;
+}
+
 async function prepare() {
-    if (!navigator.gpu || !globalThis.OffscreenCanvas) {
-      throw new Error("This game requires a browser with WebGPU and OffscreenCanvas support.");
+    const missing = missingBrowserFeatures();
+    if (missing.length > 0) {
+      throw new Error(
+        `This browser does not provide ${missing.join(" or ")}. The port renders ` +
+        "through WebGPU in a worker, so it cannot start without it."
+      );
     }
     const {root, persistent} = await persistentStorage();
+    storageRoot = root;
     document.querySelector("#storage-note").textContent = persistent
       ? "Game files and saves are kept in persistent storage on this device."
       : "The browser has not granted persistent storage. It may clear game files and saves under storage pressure.";
@@ -84,10 +139,13 @@ async function prepare() {
     });
     archive.disabled = false;
     try {
-      await root.getDirectoryHandle("install");
-      play.disabled = false;
+      await root.getFileHandle("install.ready");
+      play.disabled = testPlay.disabled = false;
     } catch (error) {
       if (error.name !== "NotFoundError") throw error;
+      report("Removing an interrupted installation…");
+      await removeIfPresent(root, "install", true);
+      await removeIfPresent(root, "install.ready.tmp");
     }
     report("Choose your game ZIP or play the installation saved on this device.");
 }
