@@ -240,6 +240,11 @@ const featuresByProject = {
         "The product asks the release service once per launch whether a newer version exists and reports the answer without ever claiming a check that did not run succeeded",
       state: "partial",
     },
+    {
+      sourceId: "S035",
+      label: "Every shipped platform presents an authored app icon instead of a placeholder",
+      state: "verified",
+    },
   ],
   sunbright: [
     {
@@ -1254,6 +1259,31 @@ const featuresByProject = {
       sourceId: "S14",
       label: "History transport is bounded and images load on demand",
       state: "verified",
+    },
+    {
+      sourceId: "S15",
+      label: "Remote access works with no third party in the data path (direct WebRTC transport)",
+      state: "partial",
+    },
+    {
+      sourceId: "S16",
+      label: "A send is reported undelivered only when the refusal names THAT send",
+      state: "verified",
+    },
+    {
+      sourceId: "S17",
+      label: "A compaction with nothing to compact is a no-op, and is not re-attempted",
+      state: "verified",
+    },
+    {
+      sourceId: "S18",
+      label: "Concurrent notices are stacked, deduplicated, and bounded",
+      state: "verified",
+    },
+    {
+      sourceId: "S19",
+      label: "A session states it has no context budget, so agents do not invent one and stop",
+      state: "partial",
     },
   ],
   "node-gtk-vte": [
