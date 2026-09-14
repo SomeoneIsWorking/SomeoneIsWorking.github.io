@@ -216,7 +216,7 @@ const featuresByProject = {
     {
       sourceId: "S030",
       label: "WASM builds and deploys the same product boundary to GitHub Pages",
-      state: "partial",
+      state: "verified",
     },
     {
       sourceId: "S031",
@@ -226,7 +226,7 @@ const featuresByProject = {
     {
       sourceId: "S032",
       label: "A version tag publishes one GitHub Release with all four native packages",
-      state: "partial",
+      state: "verified",
     },
     {
       sourceId: "S033",
