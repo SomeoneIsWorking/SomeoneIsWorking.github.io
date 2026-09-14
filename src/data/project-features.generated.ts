@@ -74,7 +74,7 @@ const featuresByProject = {
     {
       sourceId: "S004",
       label: "Android provides no-terminal disk setup without packaged game assets",
-      state: "partial",
+      state: "verified",
     },
     {
       sourceId: "S005",
@@ -216,7 +216,7 @@ const featuresByProject = {
     {
       sourceId: "S030",
       label: "WASM builds and deploys the same product boundary to GitHub Pages",
-      state: "verified",
+      state: "partial",
     },
     {
       sourceId: "S031",
@@ -225,7 +225,19 @@ const featuresByProject = {
     },
     {
       sourceId: "S032",
-      label: "A qualified version tag publishes one GitHub Release with all four native packages",
+      label: "A version tag publishes one GitHub Release with all four native packages",
+      state: "partial",
+    },
+    {
+      sourceId: "S033",
+      label:
+        "One version identifies the whole product: the build banner, the pause panel, the Android package, and the published tag all name the same release",
+      state: "verified",
+    },
+    {
+      sourceId: "S034",
+      label:
+        "The product asks the release service once per launch whether a newer version exists and reports the answer without ever claiming a check that did not run succeeded",
       state: "partial",
     },
   ],
@@ -1051,11 +1063,6 @@ const featuresByProject = {
         "Linux applications stage immutable binary backing files asynchronously with bounded lifetime storage",
       state: "verified",
     },
-    {
-      sourceId: "S014",
-      label: "Browser applications stage and access files through private origin storage",
-      state: "partial",
-    },
   ],
   alchemy: [
     {
@@ -1242,6 +1249,11 @@ const featuresByProject = {
       sourceId: "S13",
       label: "The mobile client is distributed through Google Play",
       state: "missing",
+    },
+    {
+      sourceId: "S14",
+      label: "History transport is bounded and images load on demand",
+      state: "verified",
     },
   ],
   "node-gtk-vte": [
