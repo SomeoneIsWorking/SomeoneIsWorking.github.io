@@ -83,14 +83,14 @@ export const projects: Project[] = [
     summary:
       "A native PC port of the 1994 Amiga game, combining a hand-written C engine with a maintained 68000 interpreter runtime.",
     narrative:
-      "A native renderer and host systems recover the game beyond its original 320-pixel window. The browser package now accepts the player's own disks through first-run setup; browser gameplay remains unqualified.",
+      "A native renderer and host systems recover the game beyond its original 320-pixel window. The browser package accepts the player's own disks through first-run setup. v0.3.0 names the build's version in the pause panel, checks GitHub Releases for a newer one, and makes the on-screen controls legible with a held highlight plus turbo and free-camera buttons.",
     features: featuresFor("benefactor"),
     languages: ["C", "Python", "CMake", "SDL", "GLSL", "Android"],
     github: "https://github.com/SomeoneIsWorking/benefactor",
     release: {
-      label: "v0.1.0",
-      platforms: "Linux · Android",
-      url: "https://github.com/SomeoneIsWorking/benefactor/releases/tag/v0.1.0",
+      label: "v0.3.0",
+      platforms: "Linux · macOS · Windows · Android",
+      url: "https://github.com/SomeoneIsWorking/benefactor/releases/tag/v0.3.0",
     },
     liveUrl: "/benefactor/",
     featured: true,
@@ -104,6 +104,18 @@ export const projects: Project[] = [
         src: "/projects/benefactor/options-menu.png",
         alt: "Benefactor persistent in-game options menu",
         caption: "Live options for aspect ratio, speed, camera, controls, and bindings.",
+      },
+      {
+        src: "/projects/benefactor/version-and-update-check.png",
+        alt: "Benefactor options panel in the browser showing version v0.3.0",
+        caption:
+          "The build names its own version and reports the update check's result in the same panel.",
+      },
+      {
+        src: "/projects/benefactor/touch-controls.png",
+        alt: "Benefactor on-screen controls with a held button highlighted",
+        caption:
+          "Free camera engaged from the touch overlay; the held button lights its ring and disc.",
       },
     ],
   },
