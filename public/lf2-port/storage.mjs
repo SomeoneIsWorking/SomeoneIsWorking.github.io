@@ -29,7 +29,7 @@ export class FileStager {
     if (!navigator.locks) throw new Error("This browser cannot protect concurrent imports.");
     this.#active = true;
     try {
-      return await navigator.locks.request(`lucent-import:${directory}`, {ifAvailable: true}, async lock => {
+      return await navigator.locks.request(`web-port-import:${directory}`, {ifAvailable: true}, async lock => {
         if (!lock) throw new Error("Another tab is importing into this storage directory.");
         return this.#copy(file, {directory, name, maxBytes, progress});
       });
