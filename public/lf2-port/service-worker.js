@@ -1,6 +1,6 @@
 /* Rendered by the consumer's packager. Only explicitly listed redistributable
  * application resources are cached. Player files remain exclusively in OPFS. */
-const RELEASE = {"version": "2505296fae1076329af1edbffaf1daa251ce60b1d60b0a2f996f22eb0ba1a77f", "files": ["app.mjs", "index.html", "isolation.mjs", "lf2.js", "lf2.wasm", "manifest.webmanifest", "storage.mjs", "style.css"]};
+const RELEASE = {"version": "e9eb18096f80ba4267934be27df5710c7addc4652c4f43e6915b9a315b88ae1a", "files": ["app.mjs", "index.html", "isolation.mjs", "lf2.js", "lf2.wasm", "manifest.webmanifest", "storage.mjs", "style.css"]};
 const cachePrefix = `lucent-app:${self.registration.scope}:`;
 const cacheName = cachePrefix + RELEASE.version;
 const assets = new Set(RELEASE.files.map(path => new URL(path, self.registration.scope).href));
