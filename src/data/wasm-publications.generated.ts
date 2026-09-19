@@ -14,13 +14,13 @@ const publications: Record<string, WasmPublication> = {
   },
   "lf2-port": {
     sourceRepository: "SomeoneIsWorking/lf2-port",
-    sourceCommit: "afdd30ba24bfdf6306ace2f33a8cbdd822a94277",
-    sourceRunId: 35341381565,
+    sourceCommit: "2bbd617b309737f9ca71ec8b5548ceebb029368f",
+    sourceRunId: 35441971535,
   },
   xmen2: {
     sourceRepository: "SomeoneIsWorking/xmen2",
-    sourceCommit: "295fba41a9497579239da038837c210f8b31f9c3",
-    sourceRunId: 35439280148,
+    sourceCommit: "a6e2c784ac7c92fb5fe0d1b618d4f11aa12398a2",
+    sourceRunId: 35441451781,
   },
 };
 
