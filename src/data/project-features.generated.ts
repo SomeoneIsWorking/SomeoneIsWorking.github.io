@@ -251,19 +251,19 @@ const featuresByProject = {
       sourceId: "S001",
       label:
         "Exact `GMSE01` boots under `gcnport`/Dolphin JIT and reaches the `J3DShape::draw` runtime hook at `0x802e0390`",
-      state: "missing",
+      state: "verified",
     },
     {
       sourceId: "S002",
       label:
         "`gcnport` supplies a title-neutral Dolphin dynarec executor with image identity, bounded exits, invalidation, and diagnostics",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S003",
       label:
         "Sunbright native overrides and original calls use robust image-scoped runtime dispatch",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S004",
@@ -1283,6 +1283,21 @@ const featuresByProject = {
     {
       sourceId: "S19",
       label: "A session states it has no context budget, so agents do not invent one and stop",
+      state: "partial",
+    },
+    {
+      sourceId: "S20",
+      label: "The objective belongs to the session it was set for, and shows only on that tab",
+      state: "verified",
+    },
+    {
+      sourceId: "S21",
+      label: "Instructions the harness injects are never shown as the user's own words",
+      state: "verified",
+    },
+    {
+      sourceId: "S22",
+      label: "The host terminal lists its sessions, opens any of them, and prompts it from there",
       state: "partial",
     },
   ],
