@@ -7,7 +7,7 @@ export async function prepareApplication(serviceWorker = "service-worker.js") {
   await navigator.serviceWorker.register(serviceWorker, {scope: "./"});
   await navigator.serviceWorker.ready;
   if (!globalThis.crossOriginIsolated) {
-    const key = `lucent-isolation:${new URL(serviceWorker, location.href).pathname}`;
+    const key = `web-port-isolation:${new URL(serviceWorker, location.href).pathname}`;
     if (sessionStorage.getItem(key)) {
       throw new Error("Browser isolation is unavailable. Enable service workers and reload this page.");
     }
@@ -15,6 +15,6 @@ export async function prepareApplication(serviceWorker = "service-worker.js") {
     location.reload();
     return false;
   }
-  sessionStorage.removeItem(`lucent-isolation:${new URL(serviceWorker, location.href).pathname}`);
+  sessionStorage.removeItem(`web-port-isolation:${new URL(serviceWorker, location.href).pathname}`);
   return true;
 }
