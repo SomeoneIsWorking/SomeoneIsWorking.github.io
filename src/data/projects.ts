@@ -203,6 +203,32 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "setsail",
+    name: "Set Sail",
+    eyebrow: "Wind Waker HD at 60 frames a second",
+    category: "Native game ports",
+    status: "In development",
+    summary:
+      "A Wii U runtime for The Legend of Zelda: The Wind Waker HD that draws a frame between each two the game draws, blending the camera and every object it can match.",
+    narrative:
+      "Frames between the game's own are drawn from blended transforms and proven not to change guest memory. Moving shadows, some animated effects and a set of unmatched draws still step at the game's 30 Hz, and the packaged build has been started on only one distribution with a window.",
+    features: featuresFor("setsail"),
+    languages: ["C++", "Python", "SDL3", "RmlUi", "Vulkan", "Cemu"],
+    github: "https://github.com/SomeoneIsWorking/setsail",
+    release: {
+      label: "v0.1.0 pre-release",
+      platforms: "Linux",
+      url: "https://github.com/SomeoneIsWorking/setsail/releases/tag/v0.1.0",
+    },
+    screenshots: [
+      {
+        src: "/projects/setsail/setup-screen.png",
+        alt: "Set Sail first-run screen asking for the player's own disc image",
+        caption: "First run: the player chooses their own copy of the game.",
+      },
+    ],
+  },
+  {
     slug: "lf2-port",
     name: "LF2 Port",
     eyebrow: "Little Fighter 2, native",

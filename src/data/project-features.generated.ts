@@ -50,6 +50,8 @@ const comparisonBaselinesByProject = {
     "The comparison baseline is upstream Prism Launcher at this fork's imported upstream checkpoint (3d01e09fc). S003-S006 add automatic local-network instance import, while S011 changes the selected-instance desktop shortcut workflow. The other state items describe retained upstream launcher capabilities whose current evidence is tracked independently. S012 and S013 add fork-specific maintenance and an optional native-package migration path. S014 tracks the fork's release packages across Linux and Apple Silicon macOS. S015 adds LAN updates for an existing instance in addition to creating a copy.",
   "minecraft-supermarket":
     "The previous milestone-customer-delivery-fixed Supermarket modpack release, which generated a smaller market settlement with checkout and delivery play but did not yet place the expanded city inside a surrounding sakura forest or provide the current full-height shelving and raised angled produce displays. Vanilla Minecraft supplies none of the supermarket gameplay.",
+  setsail:
+    "Baseline: playing Wind Waker HD in upstream Cemu. A player installs the Cemu AppImage, adds their WUX to a game list, optionally installs community graphic packs (WindWakerHD_Resolution, _Contrasty, _Shadows, _NoSSAO, _LODBias, _Anisotropic, _RemoveHUD, _PictoBox, _IntelFixes, _FPSSlowdownFix), and plays at the title's 30 Hz presentation rate. No 60 fps pack exists for this title. Each item below states its difference from that baseline.",
 } as const satisfies Record<string, string>;
 
 const featuresByProject = {
@@ -1831,6 +1833,68 @@ const featuresByProject = {
     {
       sourceId: "S021",
       label: "The supermarket has full-height stocked shelves and raised angled produce bins",
+      state: "verified",
+    },
+  ],
+  setsail: [
+    {
+      sourceId: "ST-BOOT",
+      label: "Title boots to in-game control through our source-built runtime",
+      state: "verified",
+    },
+    {
+      sourceId: "ST-IDENT",
+      label: "Title identity is validated from the player's file before it is accepted",
+      state: "verified",
+    },
+    {
+      sourceId: "ST-CAMERA",
+      label: "Camera transform recovered from the guest's submitted render state",
+      state: "verified",
+    },
+    {
+      sourceId: "ST-ACTORS",
+      label: "Actor transforms recovered with stable identity across ticks",
+      state: "partial",
+    },
+    {
+      sourceId: "ST-60",
+      label: "Presents at 60 Hz with interpolated frames from blended transforms",
+      state: "partial",
+    },
+    {
+      sourceId: "ST-60-EVIDENCE",
+      label: "Interpolation proven by counters with denominators and code-diffed captures",
+      state: "partial",
+    },
+    {
+      sourceId: "ST-PERF",
+      label: "60 Hz sustained, frame-time percentiles published with the tested hardware",
+      state: "verified",
+    },
+    {
+      sourceId: "ST-SAVES",
+      label: "Saves and settings in the OS user-data location, not the checkout",
+      state: "verified",
+    },
+    {
+      sourceId: "ST-SETUP",
+      label: "No-terminal first-run setup with a native picker for the player's disc image",
+      state: "verified",
+    },
+    {
+      sourceId: "ST-APPIMAGE",
+      label: "Asset-free Linux AppImage release",
+      state: "partial",
+    },
+    {
+      sourceId: "ST-RUNSH",
+      label: "`./run.sh` provisions from a clean checkout and launches the title",
+      state: "verified",
+    },
+    {
+      sourceId: "ST-VERIFIER",
+      label: "Canonical Python verifier with format, tidy, structure, and test gates",
       state: "verified",
     },
   ],
