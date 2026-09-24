@@ -211,14 +211,14 @@ export const projects: Project[] = [
     summary:
       "A Wii U runtime for The Legend of Zelda: The Wind Waker HD that draws a frame between each two the game draws, blending the camera and every object it can match.",
     narrative:
-      "Frames between the game's own are drawn from blended transforms and proven not to change guest memory. Moving shadows, some animated effects and a set of unmatched draws still step at the game's 30 Hz, and the packaged build has been started on only one distribution with a window.",
+      "Frames between the game's own are drawn from blended transforms and proven not to change guest memory. Moving shadows, some animated effects and a set of unmatched draws still step at the game's 30 Hz. The packaged build runs natively on Wayland or X11 and has been played on Fedora 44 and Debian 13.",
     features: featuresFor("setsail"),
     languages: ["C++", "Python", "SDL3", "RmlUi", "Vulkan", "Cemu"],
     github: "https://github.com/SomeoneIsWorking/setsail",
     release: {
-      label: "v0.1.0 pre-release",
+      label: "v0.1.1 pre-release",
       platforms: "Linux",
-      url: "https://github.com/SomeoneIsWorking/setsail/releases/tag/v0.1.0",
+      url: "https://github.com/SomeoneIsWorking/setsail/releases/tag/v0.1.1",
     },
     screenshots: [
       {
