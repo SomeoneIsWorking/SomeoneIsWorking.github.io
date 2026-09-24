@@ -33,9 +33,13 @@ PROJECT_PATHS = {
     "fedora-kde-steamdeck": "fedora-kde-steamdeck",
     "prismlauncher": "PrismLauncher",
     "minecraft-supermarket": "minecraft",
+    "setsail": "wiiu/setsail",
 }
 
 VALID_STATES = {"verified", "partial", "blocked", "missing"}
+# A state row's stable ID: numbered (S12, S3a) or named with a project prefix
+# (ST-APPIMAGE). The header row's plain "ID" matches neither.
+STATE_ROW = re.compile(r"^\|\s*(?:S\d+[a-z]?|[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+)\s*\|")
 DETAIL_HEADING = re.compile(r"^## (S\d+[a-z]?)\s+[—-]\s+(.+)$", re.MULTILINE)
 DETAIL_STATUS = re.compile(r"^Status:\s*`?(verified|partial|blocked|missing)`?\s*$", re.MULTILINE)
 COMPARISON_BASELINE_HEADING = re.compile(r"^## Comparison baseline\s*$", re.MULTILINE)
@@ -53,7 +57,7 @@ class Feature:
 def parse_table(text: str, path: Path) -> list[Feature]:
     features: list[Feature] = []
     for line in text.splitlines():
-        if not re.match(r"^\|\s*S\d+[a-z]?\s*\|", line):
+        if not STATE_ROW.match(line):
             continue
         cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
         if len(cells) == 5:
