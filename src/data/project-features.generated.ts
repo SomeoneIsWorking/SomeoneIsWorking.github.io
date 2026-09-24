@@ -1885,7 +1885,7 @@ const featuresByProject = {
     {
       sourceId: "ST-APPIMAGE",
       label: "Asset-free Linux AppImage release",
-      state: "partial",
+      state: "verified",
     },
     {
       sourceId: "ST-RUNSH",
