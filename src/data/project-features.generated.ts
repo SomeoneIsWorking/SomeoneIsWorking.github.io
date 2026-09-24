@@ -878,7 +878,7 @@ const featuresByProject = {
     {
       sourceId: "S004",
       label: "Native Gears 1 audio-mix operation",
-      state: "partial",
+      state: "verified",
     },
     {
       sourceId: "S005",
@@ -903,7 +903,7 @@ const featuresByProject = {
     {
       sourceId: "S009",
       label: "Representative interactive Gears 1 gameplay",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S010",
@@ -923,7 +923,7 @@ const featuresByProject = {
     {
       sourceId: "S013",
       label: "Native 8.33 ms / 120 fps renderer budget",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S014",
@@ -944,6 +944,16 @@ const featuresByProject = {
       sourceId: "S017",
       label: "Asset-free native/JIT boundary CI",
       state: "partial",
+    },
+    {
+      sourceId: "S018",
+      label: "PC keyboard and mouse controls beside host gamepads",
+      state: "partial",
+    },
+    {
+      sourceId: "S019",
+      label: "Campaign checkpoints save and resume in the player's user-data directory",
+      state: "verified",
     },
   ],
   psxport: [
