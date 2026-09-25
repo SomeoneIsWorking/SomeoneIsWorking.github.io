@@ -183,9 +183,9 @@ export const projects: Project[] = [
     languages: ["C", "C++", "Python", "SDL3", "Vulkan", "RmlUi", "x86port JIT"],
     github: "https://github.com/SomeoneIsWorking/xmen2",
     release: {
-      label: "v0.2.12",
+      label: "v0.2.13",
       platforms: "Linux · macOS · Android",
-      url: "https://github.com/SomeoneIsWorking/xmen2/releases/tag/v0.2.12",
+      url: "https://github.com/SomeoneIsWorking/xmen2/releases/tag/v0.2.13",
     },
     liveUrl: "/xmen2/",
     featured: true,
