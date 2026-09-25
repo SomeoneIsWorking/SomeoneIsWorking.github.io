@@ -521,6 +521,11 @@ const featuresByProject = {
       state: "missing",
     },
     {
+      sourceId: "S023",
+      label: "Seamless LAN multiplayer without GameSpy's servers",
+      state: "partial",
+    },
+    {
       sourceId: "S019",
       label: "Proven shared Alchemy gameplay boundary and deferred MUA adoption",
       state: "partial",
@@ -910,7 +915,7 @@ const featuresByProject = {
     {
       sourceId: "S010",
       label: "Apple Silicon macOS A64 execution",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S011",
@@ -956,6 +961,21 @@ const featuresByProject = {
       sourceId: "S019",
       label: "Campaign checkpoints save and resume in the player's user-data directory",
       state: "verified",
+    },
+    {
+      sourceId: "S020",
+      label: "Native engine reads Gears 1's cooked packages without the guest",
+      state: "verified",
+    },
+    {
+      sourceId: "S021",
+      label: "Native engine reads objects' serialized properties",
+      state: "verified",
+    },
+    {
+      sourceId: "S022",
+      label: "Native engine decodes textures and static meshes and renders a level",
+      state: "partial",
     },
   ],
   psxport: [
