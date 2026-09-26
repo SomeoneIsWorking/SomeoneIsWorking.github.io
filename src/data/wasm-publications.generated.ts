@@ -19,8 +19,8 @@ const publications: Record<string, WasmPublication> = {
   },
   xmen2: {
     sourceRepository: "SomeoneIsWorking/xmen2",
-    sourceCommit: "acc0a26b724e07042ee8196136c6d1eb699de107",
-    sourceRunId: 36226203116,
+    sourceCommit: "545c771330af8613157ad890933f93c51fd5c44c",
+    sourceRunId: 36228962480,
   },
 };
 
