@@ -178,14 +178,14 @@ export const projects: Project[] = [
     summary:
       "A Wine-free native port of the 2005 PC release using x86port runtime JIT translation and native subsystem replacements.",
     narrative:
-      "The port has verified unattended menu-to-gameplay coverage, but representative physical-controller playability and complete renderer fidelity remain unverified. Android publication and performance gates are also open.",
+      "The port has verified unattended menu-to-gameplay coverage, touch menus and an optional extraction-point revive. Representative physical-controller playability, complete renderer fidelity, Android device performance and a game run on real Windows hardware remain unverified.",
     features: featuresFor("xmen2"),
     languages: ["C", "C++", "Python", "SDL3", "Vulkan", "RmlUi", "x86port JIT"],
     github: "https://github.com/SomeoneIsWorking/xmen2",
     release: {
-      label: "v0.2.18",
-      platforms: "Linux · macOS · Android",
-      url: "https://github.com/SomeoneIsWorking/xmen2/releases/tag/v0.2.18",
+      label: "v0.3.0",
+      platforms: "Linux · Windows · macOS · Android",
+      url: "https://github.com/SomeoneIsWorking/xmen2/releases/tag/v0.3.0",
     },
     liveUrl: "/xmen2/",
     featured: true,
