@@ -108,7 +108,7 @@ const featureStateLabels: Record<ProjectFeatureState, string> = {
             </li>
           </ul>
         </div>
-        <p class="comparison-baseline"><span>Comparison baseline</span>{{ comparisonBaseline }}</p>
+        <p v-if="comparisonBaseline" class="comparison-baseline"><span>Comparison baseline</span>{{ comparisonBaseline }}</p>
         <ol>
           <li
             v-for="feature in project.features"

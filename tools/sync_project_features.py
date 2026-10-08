@@ -43,7 +43,10 @@ STATE_ROW = re.compile(r"^\|\s*(?:S\d+[a-z]?|[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+)\s*\|
 DETAIL_HEADING = re.compile(r"^## (S\d+[a-z]?)\s+[—-]\s+(.+)$", re.MULTILINE)
 DETAIL_STATUS = re.compile(r"^Status:\s*`?(verified|partial|blocked|missing)`?\s*$", re.MULTILINE)
 COMPARISON_BASELINE_HEADING = re.compile(r"^## Comparison baseline\s*$", re.MULTILINE)
-COMPARISON_BASELINE_INLINE = re.compile(r"^Comparison baseline:\s*(.+)$", re.MULTILINE)
+COMPARISON_BASELINE_INLINE = re.compile(
+    r"^\**(?:Comparison baseline|Baseline):\**\s*(.+?)(?:\n\s*\n|\Z)", re.MULTILINE | re.DOTALL
+)
+LEADING_STATE = re.compile(r"^`?(verified|partial|blocked|missing)\b")
 SECOND_LEVEL_HEADING = re.compile(r"^##\s+", re.MULTILINE)
 
 
@@ -54,25 +57,21 @@ class Feature:
     state: str
 
 
-def parse_table(text: str, path: Path) -> list[Feature]:
+def parse_table(text: str) -> list[Feature]:
     features: list[Feature] = []
     for line in text.splitlines():
         if not STATE_ROW.match(line):
             continue
         cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        if len(cells) == 5:
-            source_id, label, state, _dependencies, _goals = cells
-        elif len(cells) == 4:
-            source_id, label, state, _evidence = cells
-        else:
-            raise ValueError(f"{path}: state row must contain four or five cells: {line}")
-        if state not in VALID_STATES:
-            raise ValueError(f"{path}: {source_id} has unsupported state {state!r}")
-        features.append(Feature(source_id, label, state))
+        if len(cells) < 3:
+            continue
+        state = LEADING_STATE.match(cells[2])
+        if state:
+            features.append(Feature(cells[0], cells[1], state.group(1)))
     return features
 
 
-def parse_detail_inventory(text: str, path: Path) -> list[Feature]:
+def parse_detail_inventory(text: str) -> list[Feature]:
     matches = list(DETAIL_HEADING.finditer(text))
     features: list[Feature] = []
     for index, match in enumerate(matches):
@@ -81,8 +80,6 @@ def parse_detail_inventory(text: str, path: Path) -> list[Feature]:
         status = DETAIL_STATUS.search(detail)
         if status:
             features.append(Feature(match.group(1), match.group(2).strip(), status.group(1)))
-    if not features:
-        raise ValueError(f"{path}: no state table or status-bearing S detail sections found")
     return features
 
 
@@ -90,8 +87,8 @@ def parse_features(path: Path) -> list[Feature]:
     if not path.is_file():
         raise FileNotFoundError(f"required project state does not exist: {path}")
     text = path.read_text(encoding="utf-8")
-    features = parse_table(text, path)
-    return features or parse_detail_inventory(text, path)
+    features = parse_table(text)
+    return features or parse_detail_inventory(text)
 
 
 def parse_comparison_baseline(path: Path) -> str:
@@ -99,16 +96,11 @@ def parse_comparison_baseline(path: Path) -> str:
     heading = COMPARISON_BASELINE_HEADING.search(text)
     if not heading:
         inline = COMPARISON_BASELINE_INLINE.search(text)
-        if inline:
-            return plain_baseline(inline.group(1))
-        raise ValueError(f"{path}: required Comparison baseline section is missing")
+        return plain_baseline(inline.group(1)) if inline else ""
     next_heading = SECOND_LEVEL_HEADING.search(text, heading.end())
     section_end = next_heading.start() if next_heading else len(text)
     first_paragraph = text[heading.end() : section_end].strip().split("\n\n", 1)[0]
-    baseline = plain_baseline(first_paragraph)
-    if not baseline:
-        raise ValueError(f"{path}: Comparison baseline section is empty")
-    return baseline
+    return plain_baseline(first_paragraph)
 
 
 def plain_baseline(value: str) -> str:
@@ -143,10 +135,7 @@ def render(workspace_root: Path) -> tuple[str, int]:
         "const comparisonBaselinesByProject = {",
     ]
     for slug, _features, comparison_baseline in project_data:
-        if comparison_baseline:
-            lines.append(
-                f"  {typescript_string(slug)}: {typescript_string(comparison_baseline)},"
-            )
+        lines.append(f"  {typescript_string(slug)}: {typescript_string(comparison_baseline)},")
     lines.extend(
         [
             "} as const satisfies Record<string, string>;",
