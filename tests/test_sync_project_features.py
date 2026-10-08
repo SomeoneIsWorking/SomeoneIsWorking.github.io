@@ -33,9 +33,37 @@ class StateTableTest(unittest.TestCase):
             "| ST-APPIMAGE | Linux package | partial | built |\n"
         )
         self.assertEqual(
-            parse_table(text, Path("state.md")),
+            parse_table(text),
             [Feature("S1", "Boots", "verified"), Feature("ST-APPIMAGE", "Linux package", "partial")],
         )
+
+    def test_reads_the_state_word_that_starts_the_cell_and_skips_unreadable_rows(self) -> None:
+        text = (
+            "| S1 | Boots | partial — menus only |\n"
+            "| S2 | Saves | unknown | x | y | z |\n"
+            "| S3 | Links | `missing` | — | G1 |\n"
+        )
+        self.assertEqual(
+            parse_table(text),
+            [Feature("S1", "Boots", "partial"), Feature("S3", "Links", "missing")],
+        )
+
+
+class LooseBaselineTest(unittest.TestCase):
+    def baseline(self, text: str) -> str:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "project-state.md"
+            path.write_text(text, encoding="utf-8")
+            return parse_comparison_baseline(path)
+
+    def test_reads_a_bold_inline_paragraph(self) -> None:
+        self.assertEqual(
+            self.baseline("# State\n\n**Comparison baseline:** the original\ngame.\n\nNext.\n"),
+            "the original game.",
+        )
+
+    def test_missing_baseline_is_empty(self) -> None:
+        self.assertEqual(self.baseline("# State\n\n| S1 | Boots | verified |\n"), "")
 
 
 if __name__ == "__main__":

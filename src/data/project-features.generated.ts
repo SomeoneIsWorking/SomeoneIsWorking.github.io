@@ -12,24 +12,25 @@ const comparisonBaselinesByProject = {
   benefactor:
     "The user-facing baseline is the unmodified 1994 Amiga release under a conventional emulator: 320-pixel presentation, original controls and jump behavior, password flow, floppy timing, and Amiga startup.",
   sunbright:
-    "The user-visible baseline is the unmodified NTSC-U GameCube release (GMSE01) running on original hardware or Dolphin with console execution, GX rendering, 4:3 framing, and normally 30 Hz presentation. The repository's former gameplay executor is absent; Sunbright currently has no gameplay executable while its shared runtime executor is missing.",
+    "The baseline is the unmodified NTSC-U release on hardware or Dolphin: console execution, GX rendering, 4:3 framing, 30 Hz presentation. Sunbright currently has no gameplay executable, so every delta below is intended and unproven:",
   zelda3d:
-    "The baseline is the unmodified Nintendo 3DS releases of Ocarina of Time 3D and Majora's Mask 3D running on original hardware or through Azahar. Zelda3D's intended difference is one lawful native-PC experience that consumes the player's own remake assets while reproducing each remake's presentation and game-specific behavior outside a 3DS emulator.",
+    "The unmodified Nintendo 3DS releases of Ocarina of Time 3D and Majora's Mask 3D, running on original hardware or through Azahar. User-visible deltas versus that baseline:",
   xmen2:
     "The baseline is the unmodified 2005 Windows PC release of X-Men Legends II running on Windows or through Wine, with its original Direct3D 8 renderer, PC control defaults, prompts, settings, loading, and save flow. The port's intended differences are Wine-free native execution and a modern native-PC presentation, controller, settings, packaging, and diagnostics experience without changing the game. One deliberate gameplay delta is opt-in: gameplay.extraction_revive (S024), off by default.",
   "lf2-port":
     "The user-facing baseline is the unmodified Windows release of Little Fighter 2 v2.0a running on Windows or through Wine: fixed-resolution 4:3 DirectDraw, original keyboard/joystick configuration, and manual game-file setup.",
   "tomba2-engine":
-    "The external baseline is the unmodified PlayStation releases of Tomba! and Tomba! 2 on original hardware or a trusted emulator. The immediate migration baseline is this repository's pre-migration native/offline-translated hybrid, whose remaining guest code was emitted offline and compiled into each product. The intended products retain title-native ownership while replacing that generated execution with runtime translation by psxport Lightrec.",
+    "The baseline is the unmodified PlayStation releases of Tomba! and Tomba! 2, and this repository's pre-migration native/offline-translated hybrid. Every user-visible delta from that baseline is one of the capability rows below:",
   "crash-bash":
-    "The baseline is the unmodified USA PlayStation release of Crash Bash running on original hardware or through a PS1 emulator, with retail game modes, a 4:3 camera, 30 Hz presentation, and console CPU execution. The intended product authenticates the user's game image, executes selected behavior in native title owners, dynamically translates all remaining MIPS through psxport's pinned Lightrec revision, widens the camera, and adds 60 Hz interpolated presentation without accelerating simulation.",
-  gears1: "retail Xbox 360 Gears titles running in an emulator.",
+    "The unmodified USA PlayStation release of Crash Bash on original hardware or a PS1 emulator: retail game modes, a 4:3 camera, 30 Hz presentation, console CPU execution. The intended product authenticates the user's game image, executes selected behavior in native title owners, dynamically translates all remaining MIPS through psxport's pinned Lightrec revision, widens the camera, and adds 60 Hz interpolated presentation without accelerating simulation.",
+  gears1:
+    "retail Xbox 360 Gears in an emulator. User-visible deltas — keyboard and mouse beside the gamepad (S018); a signed-in local profile with working checkpoints (S019); presentation uncapped from the console's 30 Hz to 120 Hz with the game's clock still on the host clock (S013); 1440p by default instead of 720p; no-terminal setup, packaging, and rebinding are not delivered (S002, S018).",
   psxport:
     "The baseline is the previous native PSX host framework with no usable product CPU executor. The tree now has a Linux x86-64 Lightrec execution path; the intended complete delta remains a dynarec-default Lightrec/native hybrid that executes authenticated user images at runtime and retains the existing native device, rendering, audio, input, HLE, and enhancement owners.",
   lucent:
     "The baseline is each native application independently reimplementing logging, configuration, user-data paths, local HTTP transport, safe archive import, and touch routing. Lucent provides those title-neutral runtime capabilities once, with bounded behavior and tested ownership boundaries.",
   alchemy:
-    "The baseline is every Alchemy-engine game port carrying its own container decoders, archive tools, asset viewers, controller glue, and eventually title-local native engine replacements. This repository already provides measured shared libraries and tools, but no gameplay product currently links and exercises them as its engine boundary.",
+    "every Alchemy-engine game port carrying its own container decoders, archive tools, asset viewers, and controller glue. This repository supplies the shared libraries and tools; no gameplay product links them yet.",
   "port-assets":
     "The baseline is every port drawing or sourcing its own inconsistent controller, keyboard, device, and touch prompts. port-assets provides one original, scalable, target-size-checked visual language that consumers can label and render for their actual bindings.",
   pinest:
@@ -252,19 +253,17 @@ const featuresByProject = {
     {
       sourceId: "S001",
       label:
-        "Exact `GMSE01` boots under `gcnport`/Dolphin JIT and reaches the `J3DShape::draw` runtime hook at `0x802e0390`",
+        "Exact `GMSE01` boots under `gcnport`/Dolphin JIT and reaches the `J3DShape::draw` hook at `0x802e0390`",
       state: "verified",
     },
     {
       sourceId: "S002",
-      label:
-        "`gcnport` supplies a title-neutral Dolphin dynarec executor with image identity, bounded exits, invalidation, and diagnostics",
+      label: "`gcnport` supplies a title-neutral Dolphin dynarec executor",
       state: "partial",
     },
     {
       sourceId: "S003",
-      label:
-        "Sunbright native overrides and original calls use robust image-scoped runtime dispatch",
+      label: "Sunbright native overrides and original calls use robust image-scoped dispatch",
       state: "partial",
     },
     {
@@ -275,19 +274,17 @@ const featuresByProject = {
     },
     {
       sourceId: "S005",
-      label:
-        "Native decomp adapters and recovered source provide independent semantic and behavior evidence",
+      label: "Native decomp adapters and recovered source provide independent semantic evidence",
       state: "partial",
     },
     {
       sourceId: "S006",
-      label:
-        "Smooth presentation covers every eligible moving source and keeps native-rate modes separate",
+      label: "Smooth presentation covers every eligible moving source",
       state: "partial",
     },
     {
       sourceId: "S007",
-      label: "Reached decomp behavior is upstream-converged, named, and implemented from evidence",
+      label: "Reached decomp behavior is upstream-converged, named and implemented from evidence",
       state: "partial",
     },
     {
@@ -298,42 +295,39 @@ const featuresByProject = {
     {
       sourceId: "S009",
       label:
-        "Offline generator, emitted corpus, static dispatcher/runtime glue, tests, and launch paths are absent",
+        "Offline generator, emitted corpus, static dispatcher, tests and launch paths are absent",
       state: "verified",
     },
     {
       sourceId: "S010",
-      label:
-        "Independent Dolphin/decomp/binary oracle evidence can locate first divergence and prove controls",
+      label: "Independent Dolphin/decomp/binary oracle evidence can locate first divergence",
       state: "verified",
     },
     {
       sourceId: "S011",
-      label: "Native audio is complete and integrated with the native/dynarec gameplay product",
+      label: "Native audio is complete and integrated with the product",
       state: "partial",
     },
     {
       sourceId: "S012",
       label:
-        "Application lifecycle, typed configuration, Lucent logging, and structure boundaries are mechanically enforced",
+        "Application lifecycle, typed configuration, Lucent logging and structure boundaries are enforced",
       state: "partial",
     },
     {
       sourceId: "S013",
-      label:
-        "Zero-argument launcher provisions and runs only the native/dynarec product from a user-supplied image",
+      label: "Zero-argument launcher provisions and runs only the native/dynarec product",
       state: "blocked",
     },
     {
       sourceId: "S017",
       label:
-        "JIT gameplay is qualified independently on x86_64, Apple Silicon macOS AArch64, and Android arm64-v8a",
+        "JIT gameplay is qualified independently on x86_64, macOS AArch64 and Android arm64-v8a",
       state: "missing",
     },
     {
       sourceId: "S018",
-      label:
-        "Asset-free automation verifies the redistributable native renderer and tooling on supported hosts",
+      label: "Asset-free automation verifies the redistributable native renderer and tooling",
       state: "partial",
     },
     {
@@ -349,45 +343,44 @@ const featuresByProject = {
     },
     {
       sourceId: "S016",
-      label: "Native input, controls, saves, and settings work through one typed product policy",
+      label: "Native input, controls, saves and settings work through one typed product policy",
       state: "partial",
     },
   ],
   zelda3d: [
     {
       sourceId: "S001",
-      label:
-        "One launcher provisions, validates, builds, and chooses between the OoT and MM game cores",
+      label: "One launcher provisions, validates, builds and chooses between the OoT and MM cores",
       state: "verified",
     },
     {
       sourceId: "S002",
       label:
-        "3DS containers, models, animations, scenes, collision, cameras, lighting, and face data are available to both engines",
+        "3DS containers, models, animations, scenes, collision, cameras, lighting, face data reach both engines",
       state: "partial",
     },
     {
       sourceId: "S003",
       label:
-        "The PC renderer reproduces the reached PICA200 material, texture, lighting, fog, and transparency semantics",
+        "PC renderer reproduces the reached PICA200 material, texture, lighting, fog, transparency semantics",
       state: "partial",
     },
     {
       sourceId: "S004",
       label:
-        "OoT3D actor animation, facial, camera, and game-specific behavior replaces N64 behavior where grounded",
+        "OoT3D actor animation, facial, camera and game-specific behavior replaces N64 behavior where grounded",
       state: "partial",
     },
     {
       sourceId: "S005",
       label:
-        "MM3D actor animation, presentation, and game-specific behavior replaces N64 behavior where grounded",
+        "MM3D actor animation, presentation and game-specific behavior replaces N64 behavior where grounded",
       state: "partial",
     },
     {
       sourceId: "S006",
       label:
-        "An embedded Azahar oracle and parity tooling can compare the port with independent 3DS execution",
+        "Embedded Azahar oracle and comparison tooling can compare the port with independent 3DS execution",
       state: "partial",
     },
     {
@@ -404,19 +397,23 @@ const featuresByProject = {
     },
     {
       sourceId: "S009",
-      label: "macOS arm64 CI exercises portable policy seams; complete app delivery remains open",
+      label: "macOS arm64 CI",
       state: "partial",
     },
     {
       sourceId: "S010",
-      label:
-        "Windows x86_64 CI exercises portable policy seams; complete app delivery remains open",
+      label: "Windows x86_64 CI",
       state: "partial",
     },
     {
       sourceId: "S011",
-      label: "Android has a native package target and an asset-free CI gate",
+      label: "Android delivery",
       state: "missing",
+    },
+    {
+      sourceId: "S012",
+      label: "Product diagnostics reach one logger on both games",
+      state: "verified",
     },
   ],
   xmen2: [
@@ -672,17 +669,17 @@ const featuresByProject = {
     },
     {
       sourceId: "S002",
-      label: "Tomba! 2 behavior is independently compared against the original",
+      label: "Tomba! 2 behaviour compared independently against the original",
       state: "partial",
     },
     {
       sourceId: "S003",
-      label: "Tomba! 2 game behavior is owned by readable native subsystems",
+      label: "Tomba! 2 game behaviour owned by readable native subsystems",
       state: "partial",
     },
     {
       sourceId: "S004",
-      label: "Tomba! 2 picture is produced completely from game-owned scene state",
+      label: "Tomba! 2 picture produced completely from game-owned scene state",
       state: "partial",
     },
     {
@@ -692,7 +689,7 @@ const featuresByProject = {
     },
     {
       sourceId: "S006",
-      label: "Tomba! 2 interpolation covers moving camera, objects, and effects",
+      label: "Tomba! 2 interpolation covers moving camera, objects and effects",
       state: "partial",
     },
     {
@@ -702,18 +699,18 @@ const featuresByProject = {
     },
     {
       sourceId: "S008",
-      label: "Tomba! 1 selected executable and disc provenance are established",
+      label: "Tomba! 1 selected executable and disc provenance established",
       state: "verified",
     },
     {
       sourceId: "S009",
-      label: "Tomba! 1 identity, isolation, and independent startup evidence exist",
+      label: "Tomba! 1 identity, isolation and independent startup evidence exist",
       state: "verified",
     },
     {
       sourceId: "S010",
       label: "Tomba! 1 reaches representative gameplay as a native/Lightrec product",
-      state: "missing",
+      state: "blocked",
     },
     {
       sourceId: "S011",
@@ -727,7 +724,7 @@ const featuresByProject = {
     },
     {
       sourceId: "S013",
-      label: "Tomba! 1 exposes widescreen only and no unrelated enhancement modes",
+      label: "Tomba! 1 exposes widescreen only, no unrelated enhancement modes",
       state: "verified",
     },
     {
@@ -737,7 +734,7 @@ const featuresByProject = {
     },
     {
       sourceId: "S015",
-      label: "Tomba! 2 saves, reloads, and survives a full restart",
+      label: "Tomba! 2 saves, reloads and survives a full restart",
       state: "partial",
     },
     {
@@ -752,7 +749,7 @@ const featuresByProject = {
     },
     {
       sourceId: "S018",
-      label: "Both titles have removed their offline guest-source product paths",
+      label: "Both titles removed their offline guest-source product paths",
       state: "verified",
     },
     {
@@ -774,6 +771,21 @@ const featuresByProject = {
       sourceId: "S022",
       label: "Android arm64-v8a native/Lightrec CI assembles and tests the repository",
       state: "missing",
+    },
+    {
+      sourceId: "S023",
+      label: "Tomba! 2 loads complete without loading-only waits or presentation",
+      state: "partial",
+    },
+    {
+      sourceId: "S024",
+      label: "Tomba! 1 loads complete without loading-only waits or presentation",
+      state: "missing",
+    },
+    {
+      sourceId: "S025",
+      label: "Tomba! 2 files in-app bug reports (B key) with a replayable reproduction",
+      state: "partial",
     },
   ],
   "crash-bash": [
@@ -798,17 +810,23 @@ const featuresByProject = {
     {
       sourceId: "S004",
       label:
-        "Crash Bash graphics are produced natively from decoded game state and look correct across representative content",
+        "Crash Bash graphics are the guest's own GP0 output on the record path and look correct across representative content",
       state: "partial",
     },
     {
       sourceId: "S005",
-      label: "The native camera supports wider aspect ratios without changing vertical framing",
+      label: "Wider aspect ratios widen horizontal view without changing vertical framing",
       state: "partial",
     },
     {
+      sourceId: "S019",
+      label:
+        "Widescreen anchors the UI: edge HUD elements sit at the widened edges or safe area, centred elements stay centred, nothing stretches",
+      state: "missing",
+    },
+    {
       sourceId: "S006",
-      label: "Native camera and world transforms render between simulation ticks",
+      label: "Camera and world motion render between simulation ticks",
       state: "partial",
     },
     {
@@ -845,7 +863,7 @@ const featuresByProject = {
     {
       sourceId: "S013",
       label: "The remaining retail modes are reachable and playable",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S014",
@@ -855,13 +873,13 @@ const featuresByProject = {
     {
       sourceId: "S015",
       label:
-        "All 27 native overrides install by runtime image identity and all 15 original-body calls execute through the dynarec",
+        "All 27 native override registrations install by runtime image identity and all 15 original-body calls execute through the dynarec",
       state: "partial",
     },
     {
       sourceId: "S016",
       label: "Representative interactive gameplay passes on the native/dynarec product",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S017",
@@ -875,16 +893,28 @@ const featuresByProject = {
         "Hosted CI truthfully covers applicable Linux, Windows, macOS, and Android product boundaries",
       state: "partial",
     },
+    {
+      sourceId: "S020",
+      label:
+        "Crash Bash: load operations complete without loading-only waits or presentation; logos cancel through the recovered route",
+      state: "verified",
+    },
+    {
+      sourceId: "S021",
+      label:
+        "A whole-machine save state restores into any session (other minigame, menu, same match) with image identity, generations and native keys matching the restored RAM",
+      state: "verified",
+    },
   ],
   gears1: [
     {
       sourceId: "S001",
-      label: "Exact Gears 1 executable identity and normalized image validation",
+      label: "Exact Gears 1 image identity",
       state: "verified",
     },
     {
       sourceId: "S002",
-      label: "Bounded user-image/archive provisioning without derived guest source",
+      label: "Bounded user-image provisioning",
       state: "partial",
     },
     {
@@ -894,12 +924,12 @@ const featuresByProject = {
     },
     {
       sourceId: "S004",
-      label: "Native Gears 1 audio-mix operation",
+      label: "Native Gears 1 audio mix (`0x825F2D40`)",
       state: "verified",
     },
     {
       sourceId: "S005",
-      label: "Native notified operation-kind-3 GPU ticket wait",
+      label: "Native notified GPU ticket wait",
       state: "partial",
     },
     {
@@ -914,7 +944,7 @@ const featuresByProject = {
     },
     {
       sourceId: "S008",
-      label: "Bounded runtime interpreter fallback",
+      label: "Bounded interpreter fallback",
       state: "partial",
     },
     {
@@ -944,18 +974,18 @@ const featuresByProject = {
     },
     {
       sourceId: "S014",
-      label: "Gears 2, Gears 3, and Judgment exact-revision conformance",
+      label: "Gears 2, Gears 3, Judgment conformance",
       state: "missing",
     },
     {
       sourceId: "S015",
-      label: "Generated guest-source product and translator-only surfaces absent",
+      label: "No generated guest-source product",
       state: "verified",
     },
     {
       sourceId: "S016",
       label: "Independently authored shared UE3/Xbox contract",
-      state: "verified",
+      state: "partial",
     },
     {
       sourceId: "S017",
@@ -964,27 +994,27 @@ const featuresByProject = {
     },
     {
       sourceId: "S018",
-      label: "PC keyboard and mouse controls beside host gamepads",
+      label: "PC keyboard and mouse controls",
       state: "partial",
     },
     {
       sourceId: "S019",
-      label: "Campaign checkpoints save and resume in the player's user-data directory",
+      label: "Campaign checkpoints save and resume",
       state: "verified",
     },
     {
       sourceId: "S020",
-      label: "Native engine reads Gears 1's cooked packages without the guest",
+      label: "Native engine reads cooked packages",
       state: "verified",
     },
     {
       sourceId: "S021",
-      label: "Native engine reads objects' serialized properties",
+      label: "Native engine reads serialized properties",
       state: "verified",
     },
     {
       sourceId: "S022",
-      label: "Native engine decodes textures and static meshes and renders a level",
+      label: "Native engine decodes assets and renders a level",
       state: "partial",
     },
   ],
@@ -1042,6 +1072,18 @@ const featuresByProject = {
     {
       sourceId: "S022",
       label: "Mechanical structure/config/logging/tooling policy",
+      state: "partial",
+    },
+    {
+      sourceId: "S023",
+      label:
+        "Whole-machine save states (title-neutral; a title adds native state via `GameRuntime::nativeState(Core &)`, and adopts RAM-derived state in `NativeStatePort::restored` after every section is restored)",
+      state: "verified",
+    },
+    {
+      sourceId: "S024",
+      label:
+        "In-app bug report (B key: freeze, present shot + GPU device render of the same frame, pad recording + start card, replay command, RmlUi form)",
       state: "partial",
     },
   ],
@@ -1114,35 +1156,32 @@ const featuresByProject = {
   alchemy: [
     {
       sourceId: "S001",
-      label: "IGB containers and the measured Xbox 360 and PS2 corpora can be opened and inspected",
+      label: "Open and inspect IGB containers",
       state: "verified",
     },
     {
       sourceId: "S002",
-      label: "Mesh, texture, raster, and animation payloads decode into native semantic data",
+      label: "Decode mesh, texture, raster, and animation payloads into native data",
       state: "partial",
     },
     {
       sourceId: "S003",
-      label:
-        "XMLB, FB/WAD, ARK class, font, and conversation tooling exposes reusable engine formats",
+      label: "Reusable XMLB, FB/WAD, ARK, font, and conversation tooling",
       state: "partial",
     },
     {
       sourceId: "S004",
-      label:
-        "Platform-neutral controller snapshots and an SDL3 backend support stable native devices",
+      label: "Platform-neutral controller snapshots and SDL3 backend",
       state: "partial",
     },
     {
       sourceId: "S005",
-      label:
-        "Existing standalone viewers and dump tools inspect measured assets without depending on a game port",
+      label: "Standalone viewers and dump tool inspect assets without a game port",
       state: "verified",
     },
     {
       sourceId: "S006",
-      label: "IGB meshes decode into native vertex, index, material, and skinning data",
+      label: "IGB meshes decode into vertices, indices, materials, skinning",
       state: "partial",
     },
     {
@@ -1152,39 +1191,38 @@ const featuresByProject = {
     },
     {
       sourceId: "S008",
-      label: "Enbaya-compressed animation payloads decode into native animation data",
+      label: "Enbaya-compressed animation decodes into native animation",
       state: "partial",
     },
     {
       sourceId: "S009",
-      label: "XMLB assets can be decoded, edited, and round-tripped by shared tooling",
+      label: "XMLB assets decode, edit, and round-trip through shared tooling",
       state: "partial",
     },
     {
       sourceId: "S010",
-      label:
-        "FB/WAD, ARK class/vtable, font, and conversation formats have reusable inspection tools",
+      label: "FB/WAD, ARK class/vtable, font, and conversation formats have reusable tools",
       state: "partial",
     },
     {
       sourceId: "S011",
-      label: "X-Men 2 gameplay links and executes a conformed shared Alchemy contract",
+      label: "X-Men 2 gameplay links and executes a conformed shared contract",
       state: "missing",
     },
     {
       sourceId: "S012",
-      label: "MUA gameplay links and executes proven shared Alchemy contracts",
+      label: "MUA gameplay links and executes proven shared contracts",
       state: "missing",
     },
     {
       sourceId: "S013",
       label:
-        "Shipping library configuration, diagnostics, language, and dependency boundaries are mechanically enforced",
+        "Configuration, diagnostics, language, and dependency boundaries are mechanically enforced",
       state: "verified",
     },
     {
       sourceId: "S014",
-      label: "Each consumer resolves one immutable Alchemy revision for tools and runtime targets",
+      label: "Each consumer resolves one immutable revision for tools and runtime targets",
       state: "partial",
     },
   ],
@@ -1285,7 +1323,7 @@ const featuresByProject = {
       sourceId: "S11",
       label:
         "The authenticated web client connects to the owner's advertised host over the internet",
-      state: "partial",
+      state: "verified",
     },
     {
       sourceId: "S12",
@@ -1329,7 +1367,8 @@ const featuresByProject = {
     },
     {
       sourceId: "S20",
-      label: "The objective belongs to the session it was set for, and shows only on that tab",
+      label:
+        "The objective belongs to the session it was set for, and shows on its tab and in the terminal list",
       state: "verified",
     },
     {
@@ -1341,6 +1380,18 @@ const featuresByProject = {
       sourceId: "S22",
       label: "The host terminal lists its sessions, opens any of them, and prompts it from there",
       state: "partial",
+    },
+    {
+      sourceId: "S23",
+      label:
+        "An agent can fan work out to subagents, uncapped, and both clients show and drive them",
+      state: "verified",
+    },
+    {
+      sourceId: "S24",
+      label:
+        "Local agents of this machine's user drive the host's sessions over a private Unix socket, so many agents share one pi process",
+      state: "verified",
     },
   ],
   "node-gtk-vte": [
@@ -1422,6 +1473,12 @@ const featuresByProject = {
       sourceId: "S009",
       label: "Hosted CI exercises the portable repository on every applicable platform",
       state: "verified",
+    },
+    {
+      sourceId: "S010",
+      label:
+        "Bounded jobs fan out to a free LLM worker in isolated worktrees and are accepted only by a scripted gate, under a machine-wide slot cap",
+      state: "partial",
     },
   ],
   "wails-dbman": [
@@ -1873,34 +1930,24 @@ const featuresByProject = {
       state: "verified",
     },
     {
+      sourceId: "ST-PAINT",
+      label: "The title's own display paint path, reached from guest memory, painting twice a tick",
+      state: "verified",
+    },
+    {
       sourceId: "ST-IDENT",
       label: "Title identity is validated from the player's file before it is accepted",
       state: "verified",
     },
     {
       sourceId: "ST-CAMERA",
-      label: "Camera transform recovered from the guest's submitted render state",
+      label: "The title names its own camera transform, and it is read from the guest's memory",
       state: "verified",
-    },
-    {
-      sourceId: "ST-ACTORS",
-      label: "Actor transforms recovered with stable identity across ticks",
-      state: "partial",
-    },
-    {
-      sourceId: "ST-60",
-      label: "Presents at 60 Hz with interpolated frames from blended transforms",
-      state: "partial",
-    },
-    {
-      sourceId: "ST-60-EVIDENCE",
-      label: "Interpolation proven by counters with denominators and code-diffed captures",
-      state: "partial",
     },
     {
       sourceId: "ST-PERF",
       label: "60 Hz sustained, frame-time percentiles published with the tested hardware",
-      state: "verified",
+      state: "missing",
     },
     {
       sourceId: "ST-SAVES",
