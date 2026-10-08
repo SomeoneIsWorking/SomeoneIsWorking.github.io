@@ -16,7 +16,7 @@ const comparisonBaselinesByProject = {
   zelda3d:
     "The baseline is the unmodified Nintendo 3DS releases of Ocarina of Time 3D and Majora's Mask 3D running on original hardware or through Azahar. Zelda3D's intended difference is one lawful native-PC experience that consumes the player's own remake assets while reproducing each remake's presentation and game-specific behavior outside a 3DS emulator.",
   xmen2:
-    "The baseline is the unmodified 2005 Windows PC release of X-Men Legends II running on Windows or through Wine, with its original Direct3D 8 renderer, PC control defaults, prompts, settings, loading, and save flow. The port's intended differences are Wine-free native execution and a modern native-PC presentation, controller, settings, packaging, and diagnostics experience without changing the game.",
+    "The baseline is the unmodified 2005 Windows PC release of X-Men Legends II running on Windows or through Wine, with its original Direct3D 8 renderer, PC control defaults, prompts, settings, loading, and save flow. The port's intended differences are Wine-free native execution and a modern native-PC presentation, controller, settings, packaging, and diagnostics experience without changing the game. One deliberate gameplay delta is opt-in: gameplay.extraction_revive (S024), off by default.",
   "lf2-port":
     "The user-facing baseline is the unmodified Windows release of Little Fighter 2 v2.0a running on Windows or through Wine: fixed-resolution 4:3 DirectDraw, original keyboard/joystick configuration, and manual game-file setup.",
   "tomba2-engine":
@@ -518,7 +518,7 @@ const featuresByProject = {
     {
       sourceId: "S022",
       label: "Native Windows host package and CI release",
-      state: "missing",
+      state: "partial",
     },
     {
       sourceId: "S023",
@@ -529,6 +529,16 @@ const featuresByProject = {
       sourceId: "S019",
       label: "Proven shared Alchemy gameplay boundary and deferred MUA adoption",
       state: "partial",
+    },
+    {
+      sourceId: "S024",
+      label: "Optional free or paid party revive at extraction points",
+      state: "partial",
+    },
+    {
+      sourceId: "S025",
+      label: "Touch menus drawn in the game's own art and style",
+      state: "missing",
     },
   ],
   "lf2-port": [
