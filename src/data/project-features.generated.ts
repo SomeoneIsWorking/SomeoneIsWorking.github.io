@@ -11,8 +11,6 @@ export interface ProjectFeature {
 const comparisonBaselinesByProject = {
   benefactor:
     "The user-facing baseline is the unmodified 1994 Amiga release under a conventional emulator: 320-pixel presentation, original controls and jump behavior, password flow, floppy timing, and Amiga startup.",
-  sunbright:
-    "The baseline is the unmodified NTSC-U release on hardware or Dolphin: console execution, GX rendering, 4:3 framing, 30 Hz presentation. Sunbright currently has no gameplay executable, so every delta below is intended and unproven:",
   zelda3d:
     "The unmodified Nintendo 3DS releases of Ocarina of Time 3D and Majora's Mask 3D, running on original hardware or through Azahar. User-visible deltas versus that baseline:",
   xmen2:
@@ -247,104 +245,6 @@ const featuresByProject = {
       sourceId: "S035",
       label: "Every shipped platform presents an authored app icon instead of a placeholder",
       state: "verified",
-    },
-  ],
-  sunbright: [
-    {
-      sourceId: "S001",
-      label:
-        "Exact `GMSE01` boots under `gcnport`/Dolphin JIT and reaches the `J3DShape::draw` hook at `0x802e0390`",
-      state: "verified",
-    },
-    {
-      sourceId: "S002",
-      label: "`gcnport` supplies a title-neutral Dolphin dynarec executor",
-      state: "partial",
-    },
-    {
-      sourceId: "S003",
-      label: "Sunbright native overrides and original calls use robust image-scoped dispatch",
-      state: "partial",
-    },
-    {
-      sourceId: "S004",
-      label:
-        "The PC-native semantic renderer covers the complete visible J3D/J2D/particle/effect stream",
-      state: "partial",
-    },
-    {
-      sourceId: "S005",
-      label: "Native decomp adapters and recovered source provide independent semantic evidence",
-      state: "partial",
-    },
-    {
-      sourceId: "S006",
-      label: "Smooth presentation covers every eligible moving source",
-      state: "partial",
-    },
-    {
-      sourceId: "S007",
-      label: "Reached decomp behavior is upstream-converged, named and implemented from evidence",
-      state: "partial",
-    },
-    {
-      sourceId: "S008",
-      label: "The native/dynarec product passes representative interactive gameplay conformance",
-      state: "missing",
-    },
-    {
-      sourceId: "S009",
-      label:
-        "Offline generator, emitted corpus, static dispatcher, tests and launch paths are absent",
-      state: "verified",
-    },
-    {
-      sourceId: "S010",
-      label: "Independent Dolphin/decomp/binary oracle evidence can locate first divergence",
-      state: "verified",
-    },
-    {
-      sourceId: "S011",
-      label: "Native audio is complete and integrated with the product",
-      state: "partial",
-    },
-    {
-      sourceId: "S012",
-      label:
-        "Application lifecycle, typed configuration, Lucent logging and structure boundaries are enforced",
-      state: "partial",
-    },
-    {
-      sourceId: "S013",
-      label: "Zero-argument launcher provisions and runs only the native/dynarec product",
-      state: "blocked",
-    },
-    {
-      sourceId: "S017",
-      label:
-        "JIT gameplay is qualified independently on x86_64, macOS AArch64 and Android arm64-v8a",
-      state: "missing",
-    },
-    {
-      sourceId: "S018",
-      label: "Asset-free automation verifies the redistributable native renderer and tooling",
-      state: "partial",
-    },
-    {
-      sourceId: "S014",
-      label: "Desktop packages provide no-terminal first-run setup and contain no game content",
-      state: "missing",
-    },
-    {
-      sourceId: "S015",
-      label:
-        "Widescreen renders additional world coverage through projection/viewport/scissor ownership",
-      state: "partial",
-    },
-    {
-      sourceId: "S016",
-      label: "Native input, controls, saves and settings work through one typed product policy",
-      state: "partial",
     },
   ],
   zelda3d: [

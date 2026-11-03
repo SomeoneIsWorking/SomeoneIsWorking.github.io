@@ -120,29 +120,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "sunbright",
-    name: "Sunbright",
-    eyebrow: "Super Mario Sunshine, native",
-    category: "Native game ports",
-    status: "In development",
-    summary:
-      "A Super Mario Sunshine port targeting runtime PPC dynamic translation with native overrides and Aurora rendering.",
-    narrative:
-      "The native decomp remains a readable oracle while the shared PC-semantic renderer and future runtime executor are developed as separate, testable owners.",
-    features: featuresFor("sunbright"),
-    languages: ["C++", "C", "Python", "SDL3", "WebGPU", "RmlUi"],
-    github: "https://github.com/SomeoneIsWorking/sunbright",
-    featured: true,
-    screenshots: [
-      {
-        src: "/projects/sunbright/delfino-gameplay.png",
-        alt: "Delfino Plaza gameplay with Mario, FLUDD, residents, HUD, and dialogue",
-        caption:
-          "Native rendering evidence from Delfino Plaza; the runtime JIT product is in development.",
-      },
-    ],
-  },
-  {
     slug: "zelda3d",
     name: "Zelda3D",
     eyebrow: "3DS-remake asset bridge",
