@@ -13,7 +13,6 @@ from pathlib import Path
 
 PROJECT_PATHS = {
     "benefactor": "benefactor",
-    "sunbright": "sunbright",
     "zelda3d": "zelda3d",
     "xmen2": "pc/xmen2",
     "lf2-port": "pc/lf2",
