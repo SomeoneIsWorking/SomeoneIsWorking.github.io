@@ -401,7 +401,7 @@ export const projects: Project[] = [
     release: {
       label: "Android v0.1.2",
       platforms: "Android",
-      url: "https://github.com/SomeoneIsWorking/pinest/releases/tag/apk-43b3b81daf7d6b6b83313738bab1c3ef62dce292",
+      url: "https://github.com/SomeoneIsWorking/pinest/releases/tag/apk-3a9903ee4e904a05f6438cb8d2c2037d67732ec0",
     },
     liveUrl: "https://pinest.web.app",
     featured: true,

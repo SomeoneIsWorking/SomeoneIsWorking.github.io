@@ -9,17 +9,17 @@ export interface WasmPublication {
 const publications: Record<string, WasmPublication> = {
   benefactor: {
     sourceRepository: "SomeoneIsWorking/benefactor",
-    sourceCommit: "9b66ca5110dd637e3b48c7d6c21e278a0e181621",
+    sourceCommit: "3747857b50e8539b8c1d5e00ca1a0cb59a21928f",
     sourceRunId: 34793537255,
   },
   "lf2-port": {
     sourceRepository: "SomeoneIsWorking/lf2-port",
-    sourceCommit: "2bbd617b309737f9ca71ec8b5548ceebb029368f",
+    sourceCommit: "40f563b4efe98711d5af437ce7d9f4ed92838680",
     sourceRunId: 35441971535,
   },
   xmen2: {
     sourceRepository: "SomeoneIsWorking/xmen2",
-    sourceCommit: "25d1463d5b1f8ab17799a3b01c77379e45bdb10d",
+    sourceCommit: "c87e1d363a26fe37e5b961d57fd3341b5a5d5815",
     sourceRunId: 37802744299,
   },
 };
