@@ -1,9 +1,9 @@
 # Pages repository ownership
 
-This repository is the single deployment owner for the portfolio and every project WebAssembly site.
-Projects build and verify asset-free browser packages in their own repositories; their CI uploads a
-normal artifact. This repository imports the reviewed package under `public/<project-slug>/`, and its
-`main` deployment workflow publishes that route. Source projects do not deploy separate Pages sites.
+This repository is the single deployment owner for the portfolio and every project WebAssembly site
+(release rules: the `release` skill). Projects build and verify asset-free browser packages in their
+own repositories; their CI uploads a normal artifact. This repository imports the reviewed package
+under `public/<project-slug>/`, and its `main` deployment workflow publishes that route.
 
 For a project release, update its canonical `docs/project-state.md` first. Then, in this repository:
 
@@ -30,6 +30,3 @@ For a project release, update its canonical `docs/project-state.md` first. Then,
    `python3 tools/sync_project_features.py --check` when sibling repositories are available. Commit
    and push `main`, wait for `.github/workflows/deploy-pages.yml`, and verify the project detail page
    and live route. A major source release that has no browser package still refreshes steps 1 and 2.
-
-Do not change a capability to `verified` because a bundle exists. The source project's state and
-evidence own that claim. Never commit game files, saves, or translation caches here.
