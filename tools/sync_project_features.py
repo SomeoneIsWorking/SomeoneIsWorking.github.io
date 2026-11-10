@@ -32,7 +32,6 @@ PROJECT_PATHS = {
     "fedora-kde-steamdeck": "fedora-kde-steamdeck",
     "prismlauncher": "PrismLauncher",
     "minecraft-supermarket": "minecraft",
-    "setsail": "wiiu/setsail",
 }
 
 VALID_STATES = {"verified", "partial", "blocked", "missing"}
