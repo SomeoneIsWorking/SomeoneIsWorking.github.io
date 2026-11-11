@@ -11,8 +11,6 @@ export interface ProjectFeature {
 const comparisonBaselinesByProject = {
   benefactor:
     "The user-facing baseline is the unmodified 1994 Amiga release under a conventional emulator: 320-pixel presentation, original controls and jump behavior, password flow, floppy timing, and Amiga startup.",
-  zelda3d:
-    "The unmodified Nintendo 3DS releases of Ocarina of Time 3D and Majora's Mask 3D, running on original hardware or through Azahar. User-visible deltas versus that baseline:",
   xmen2:
     "The baseline is the unmodified 2005 Windows PC release of X-Men Legends II running on Windows or through Wine, with its original Direct3D 8 renderer, PC control defaults, prompts, settings, loading, and save flow. The port's intended differences are Wine-free native execution and a modern native-PC presentation, controller, settings, packaging, and diagnostics experience without changing the game. One deliberate gameplay delta is opt-in: gameplay.extraction_revive (S024), off by default.",
   "lf2-port":
@@ -242,75 +240,6 @@ const featuresByProject = {
     {
       sourceId: "S035",
       label: "Every shipped platform presents an authored app icon instead of a placeholder",
-      state: "verified",
-    },
-  ],
-  zelda3d: [
-    {
-      sourceId: "S001",
-      label: "One launcher provisions, validates, builds and chooses between the OoT and MM cores",
-      state: "verified",
-    },
-    {
-      sourceId: "S002",
-      label:
-        "3DS containers, models, animations, scenes, collision, cameras, lighting, face data reach both engines",
-      state: "partial",
-    },
-    {
-      sourceId: "S003",
-      label:
-        "PC renderer reproduces the reached PICA200 material, texture, lighting, fog, transparency semantics",
-      state: "partial",
-    },
-    {
-      sourceId: "S004",
-      label:
-        "OoT3D actor animation, facial, camera and game-specific behavior replaces N64 behavior where grounded",
-      state: "partial",
-    },
-    {
-      sourceId: "S005",
-      label:
-        "MM3D actor animation, presentation and game-specific behavior replaces N64 behavior where grounded",
-      state: "partial",
-    },
-    {
-      sourceId: "S006",
-      label:
-        "Embedded Azahar oracle and comparison tooling can compare the port with independent 3DS execution",
-      state: "partial",
-    },
-    {
-      sourceId: "S007",
-      label:
-        "The AppImage accepts four direct ROMs or bounded ZIPs and persists validated choices without shipping game content",
-      state: "partial",
-    },
-    {
-      sourceId: "S008",
-      label:
-        "Linux CI builds the complete app and both cores and executes asset-free native contracts",
-      state: "partial",
-    },
-    {
-      sourceId: "S009",
-      label: "macOS arm64 CI",
-      state: "partial",
-    },
-    {
-      sourceId: "S010",
-      label: "Windows x86_64 CI",
-      state: "partial",
-    },
-    {
-      sourceId: "S011",
-      label: "Android delivery",
-      state: "missing",
-    },
-    {
-      sourceId: "S012",
-      label: "Product diagnostics reach one logger on both games",
       state: "verified",
     },
   ],

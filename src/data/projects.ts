@@ -120,33 +120,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "zelda3d",
-    name: "Zelda3D",
-    eyebrow: "3DS-remake asset bridge",
-    category: "Native game ports",
-    status: "In development",
-    summary:
-      "Runs the Ocarina of Time and Majora’s Mask PC ports with the 3DS remakes’ assets and presentation.",
-    narrative:
-      "The N64 PC-port engines remain the game-logic spine. Zelda3D replaces visual, asset, and behavior seams with 3DS-remake data and remains explicitly unfinished.",
-    features: featuresFor("zelda3d"),
-    languages: ["C", "C++", "Python", "Ship of Harkinian", "Azahar"],
-    github: "https://github.com/SomeoneIsWorking/zelda3d",
-    featured: true,
-    screenshots: [
-      {
-        src: "/projects/zelda3d/kokiri.jpg",
-        alt: "Kokiri Forest rendered with Ocarina of Time 3D scene assets",
-        caption: "Kokiri Forest through the Zelda3D visual layer.",
-      },
-      {
-        src: "/projects/zelda3d/hyrule-night.jpg",
-        alt: "Hyrule Field at night with 3DS geometry and lighting",
-        caption: "Hyrule Field at night.",
-      },
-    ],
-  },
-  {
     slug: "xmen2",
     name: "X-Men Legends II",
     eyebrow: "Native PC runtime JIT",
